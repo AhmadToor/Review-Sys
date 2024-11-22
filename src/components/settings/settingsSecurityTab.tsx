@@ -20,7 +20,7 @@ const SettingsSecurityTab = () => {
               <Label htmlFor="password">Old Password</Label>
             </div>
             <div className="flex items-baseline relative">
-              <Input id="password" type={oldPasswordType} placeholder="Your password" autoComplete="old-password"  />
+              <Input id="oldpassword" type={oldPasswordType} placeholder="Your password" autoComplete="old-password"  />
               <div onClick={toggleOldPasswordVisibility} className="cursor-pointer absolute right-2.5 top-[9px]">
               {
                   oldPasswordType === 'text'? <EyeClosed/> : <Eye/>
@@ -33,7 +33,7 @@ const SettingsSecurityTab = () => {
               <Label htmlFor="password">New Password</Label>
             </div>
             <div className="flex items-baseline relative">
-              <Input id="password" type={passwordType} placeholder="Your password" autoComplete="new-password"  />
+              <Input id="newpassword" type={passwordType} placeholder="Your password" autoComplete="new-password"  />
               <div onClick={togglePasswordVisibility} className="cursor-pointer absolute right-2.5 top-[9px]">
               {
                   passwordType === 'text'? <EyeClosed/> : <Eye/>
