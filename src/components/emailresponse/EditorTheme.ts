@@ -1,0 +1,35 @@
+export default {
+    code: 'bg-gray-800 text-white p-4 rounded', 
+    heading: {
+      h1: 'text-4xl font-bold my-4',
+      h2: 'text-3xl font-bold my-3',
+      h3: 'text-2xl font-bold my-2',
+      h4: 'text-xl font-bold my-2',
+      h5: 'text-lg font-bold my-1',
+    },
+    image: 'w-full h-auto', 
+    link: 'text-blue-500 hover:underline', 
+    list: {
+      listitem: 'list-disc pl-5 my-1',
+      nested: {
+        listitem: 'list-decimal pl-5 my-1', 
+      },
+      ol: 'list-decimal pl-5 my-1',
+      ul: 'list-disc pl-5 my-1',
+    },
+    ltr: 'text-left', 
+    paragraph: 'my-2',
+    placeholder: 'text-gray-400', 
+    quote: 'border-l-4 border-gray-300 pl-4 italic my-2', 
+    rtl: 'text-right',
+    text: {
+      bold: 'font-bold',
+      code: 'bg-gray-200 p-1 rounded', 
+      hashtag: 'text-blue-500',
+      italic: 'italic',
+      overflowed: 'overflow-hidden text-ellipsis',
+      strikethrough: 'line-through',
+      underline: 'underline',
+      underlineStrikethrough: 'underline line-through',
+    },
+};
