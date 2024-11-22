@@ -86,30 +86,22 @@ const data = {
   ],
 }
 
-interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
-  setshowChildren? : (value: boolean) => void;
-  showChildren? : boolean | undefined;
-}
 
-export function AppSidebar({ ...props }: AppSidebarProps) {
+
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
-  const buisnessProfile =React.useContext(BuisnessProfileContext)
+  const {buisnessProfile, setBuisnessProfile} =React.useContext(BuisnessProfileContext)
   const {showChildren, setShowChildren} = React.useContext(ShowChildrenContext)
- React.useEffect(()=>{
-  if (buisnessProfile) {
-    setValue(buisnessProfile)
-  }
- }, [])
- console.log(buisnessProfile);
+ 
+
  
  
   
   React.useEffect(()=>{
-    if (value) {
-      localStorage.setItem('attachedBuisness', value)
+    if (buisnessProfile) {
+      localStorage.setItem('attachedBuisness', buisnessProfile)
     }
-  }, [value])
+  }, [buisnessProfile])
   return (
     <Sidebar {...props}>
       <SidebarHeader>
@@ -125,10 +117,10 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
                 aria-expanded={open}
                 className="w-full mt-3 border-none text-black justify-between"
               >
-                {value ? (
+                {showChildren ? (
                   <div className="flex gap-2 items-center">
                     <DefaultBuisnessIcon />
-                    {data.buisness.find((buisness) => buisness.value === value)?.label  }
+                    {data.buisness.find((buisness) => buisness.value === buisnessProfile)?.label  }
                   </div>
                 ) : (
                   <div className="flex gap-2 items-center">
@@ -149,8 +141,8 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
                         key={buisness.value}
                         value={buisness.value}
                         onSelect={(currentValue) => {
-                          setValue(currentValue === value ? "" : currentValue)
-                          {currentValue === value  ? setShowChildren(false) : setShowChildren(true)}
+                          setBuisnessProfile(currentValue === buisnessProfile ? "" : currentValue)
+                          {currentValue === buisnessProfile  ? setShowChildren(false) : setShowChildren(true)}
                           {currentValue == buisnessProfile? localStorage.removeItem('attachedBuisness') : localStorage.setItem('attachedBuisness', (currentValue))}
                           
                           setOpen(false)
@@ -160,7 +152,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
                         <Check
                           className={cn(
                             "ml-auto",
-                            value === buisness.value ? "opacity-100" : "opacity-0"
+                            buisnessProfile === buisness.value ? "opacity-100" : "opacity-0"
                           )}
                         />
                       </CommandItem>

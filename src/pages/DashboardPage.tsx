@@ -33,9 +33,9 @@ const DashboardPage = () => {
         <h1 className='text-2xl  text-start w-fit  font-bold bg-secondary-gradient bg-clip-text text-fill'>Dashboard</h1>
         <div className="grid grid-cols-2 lg:grid-cols-4 my-4 justify-center gap-6  ">
         {
-          dashboardData.map((data)=>{
+          dashboardData.map((data, index)=>{
             return (
-              <Card className="rounded-3xl  h-44 min-w-64 pt-3 px-2 border-none pb-8">
+              <Card key={index} className="rounded-3xl  h-44 min-w-64 pt-3 px-2 border-none pb-8">
             <CardContent className="pb-2 px-1  w-full h-full">
               <div className={`items-center flex justify-center  rounded-3xl text-3xl w-full h-full font-bold ${data.background}`}>{data.content}</div>
               <h3 className="text-center my-2">{data.title}</h3>

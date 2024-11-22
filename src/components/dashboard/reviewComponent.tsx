@@ -1,4 +1,4 @@
-import { PencilLine, Star } from "lucide-react";
+import { Angry, PencilLine, Smile, Star } from "lucide-react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { Card, CardContent,CardFooter, CardHeader } from "../ui/card";
@@ -55,9 +55,9 @@ const ReviewComponent = () => {
   return (
     <div className="grid grid-cols-[6fr_5fr] lg:grid-cols-[3fr_2fr] gap-3">
         <div className="my-3 flex flex-col gap-3  ">
-     {reviews.map((review)=>{
+     {reviews.map((review, index)=>{
         return (
-            <Card onClick={()=>{handleReviewClick(review)}} className="shadow-none border-none rounded-lg cursor-pointer">
+            <Card key={index} onClick={()=>{handleReviewClick(review)}} className="shadow-none border-none rounded-lg cursor-pointer">
             <CardHeader className="justify-between px-3 pt-3 pb-1 flex flex-row items-center">
                 <div className="flex gap-2 items-center">
                     <Avatar className="h-8 w-8">
@@ -77,8 +77,8 @@ const ReviewComponent = () => {
             </CardContent>
     
             <CardFooter className="flex justify-between px-3 pb-3 pt-0">
-                <Button className={`border-none  text-xs font-bold ${review.mood === 'Happy'? 'bg-dashboardButton' : 'bg-red-100 text-destructive'}`} variant='outline'>{review.mood === 'Happy'? '😊' : '😡'} {review.mood}</Button>
-                <Button className="border-none bg-dashboardButton text-xs font-bold" variant='outline'>😊 Generate Response</Button>
+                <Button className={`border-none  text-xs font-bold ${review.mood === 'Happy'? 'bg-dashboardButton' : 'bg-red-100 text-black'}`} variant='outline'>{review.mood === 'Happy'? <Smile className="fill-yellow-400 stroke-1.5"/> : <Angry className="fill-red-400 stroke-1.5"/>} {review.mood}</Button>
+                <Button className="border-none bg-dashboardButton text-xs font-bold" variant='outline'><Smile className="fill-yellow-400 stroke-1.5"/> Generate Response</Button>
             </CardFooter>
           </Card>
         )
@@ -102,7 +102,7 @@ const ReviewComponent = () => {
                     </div>
                 </div>
                 <div className="flex gap-2">
-                <Badge className="w-fit text-xs flex items-center " >{selectedReview.mood === 'Happy'? '😊': '😡'}</Badge>
+                <Badge className="w-fit text-xs flex items-center " >{selectedReview.mood === 'Happy'? <Smile className="stroke-1.5 fill-yellow-400 h-4 w-4"/> : <Angry className="fill-red-400 stroke-1.5 h-4 w-4"/> }</Badge>
                 <Badge className="w-fit text-xs flex items-center gap-1" > <Star className="stroke-none fill-yellow-400 h-4 w-4"/>  {selectedReview.rating}</Badge>
                 </div>
         </div>

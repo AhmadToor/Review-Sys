@@ -2,7 +2,7 @@ import { Avatar } from "@radix-ui/react-avatar";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
-import { Check, Star } from "lucide-react";
+import { Angry, Check, Smile, Star } from "lucide-react";
 import {  Dispatch, SetStateAction, useState } from "react";
 import { Button } from "../ui/button";
 import LoadingIcon from '@/assets/svg/LoadingIcon.svg?react'
@@ -87,9 +87,9 @@ const BulkRepliesComponent = ({setAiResponse}: Props) => {
   return (
     <div className="grid pt-6 grid-cols-[6fr_5fr] lg:grid-cols-[3fr_2fr] gap-3">
       <div className="gap-3 flex flex-col">
-        {reviews.map((review)=>{
+        {reviews.map((review, index)=>{
             return (
-                <div className="flex gap-4 items-center cursor-pointer" onClick={()=>{handleReviewClick(review)}}>
+                <div className="flex gap-4 items-center cursor-pointer" key={index} onClick={()=>{handleReviewClick(review)}}>
                     <div className={selectedReview == review? `bg-primary w-max rounded-full p-1.5` :`bg-gray-200 w-max rounded-full p-1.5`}><Check className={selectedReview === review? `h-3 w-3 stroke-white`: ` h-3 w-3`}/></div>
                     <Card className="border-none rounded-lg cursor-pointer w-full " >
           
@@ -106,7 +106,7 @@ const BulkRepliesComponent = ({setAiResponse}: Props) => {
                         </div>
                     </div>
                     <div className="flex gap-2">
-                    <Badge className={`border-none  text-xs font-bold ${review.mood === 'Happy'? 'bg-dashboardButton' : 'bg-red-100 text-destructive'}`} >{review.mood === 'Happy'? '😊' : '😡'} {review.mood}</Badge>
+                    <Badge className={`border-none  text-xs font-bold ${review.mood === 'Happy'? 'bg-dashboardButton' : 'bg-red-100 '}`} >{review.mood === 'Happy'? <Smile className="stroke-1.5 fill-yellow-400 h-4 w-4 mr-1"/> : <Angry className="fill-red-400 stroke-1.5 h-4 w-4 mr-1"/>} {review.mood}</Badge>
                     <Badge className="w-fit text-xs flex items-center gap-1" > <Star className="stroke-none fill-yellow-400 h-4 w-4"/>  {review.rating}</Badge>
                     </div>
             </div>
@@ -147,7 +147,17 @@ const BulkRepliesComponent = ({setAiResponse}: Props) => {
         
         <div className="absolute bottom-3 right-3 left-3">
                 <hr className="my-4" />
-                <Badge className={`w-fit text-xs flex items-center ${selectedReview.mood === 'Happy'? 'bg-dashboardButton' : 'bg-red-100 text-destructive'}`} >{selectedReview.mood === 'Happy'? `😊 ${selectedReview.mood}`: `😡 ${selectedReview.mood}`}</Badge>
+                <Badge className={`w-fit text-xs flex items-center ${selectedReview.mood === 'Happy' ? 'bg-dashboardButton' : 'bg-red-100 '}`}>
+  {selectedReview.mood === 'Happy' ? (
+    <>
+      <Smile className="stroke-1.5 fill-yellow-400 h-4 w-4 mr-1" /> {selectedReview.mood}
+    </>
+  ) : (
+    <>
+      <Angry className="stroke-1.5 fill-red-400 h-4 w-4 mr-1" /> {selectedReview.mood}
+    </>
+  )}
+</Badge>
             </div>
     </Card>
     

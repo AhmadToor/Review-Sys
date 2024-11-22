@@ -188,9 +188,9 @@ const EmailTemplateComponent = () => {
     return (
         <div className="grid grid-cols-[3fr_2fr] gap-3">
             <div className="flex flex-col gap-3 mt-4">
-                {emailTemplates.map((template) => {
+                {emailTemplates.map((template, index) => {
                     return (
-                        <Card className="border-none p-3 cursor-pointer">
+                        <Card key={index} className="border-none p-3 cursor-pointer">
                             <CardContent className="p-0 space-y-1">
                                 <h1 className="text-sm font-semibold">{template.title}</h1>
                                 <p className="text-xs">{template.body}</p>

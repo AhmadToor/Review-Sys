@@ -33,9 +33,9 @@ const FeedbackComponent = () => {
   return (
     <div className="grid grid-cols-[3fr_2fr] gap-3 mt-3">
       <div className="space-y-3">
-       {reviews.map((review)=>{
+       {reviews.map((review , index)=>{
         return(
-            <Card className="p-3 border-none cursor-pointer">
+            <Card key={index} className="p-3 border-none cursor-pointer">
             <CardContent className="p-0">
                 <h1 className="text-sm font-semibold">{review.title}</h1>
                 <p className="mt-2 text-xs">{review.description}</p>

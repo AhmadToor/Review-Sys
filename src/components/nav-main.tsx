@@ -20,9 +20,9 @@ export function NavMain({
   return (
     <SidebarGroup>
       <SidebarMenu>
-        {items.map((item) => (
+        {items.map((item, index) => (
          
-            <SidebarMenuItem>
+            <SidebarMenuItem key={index}>
               
                
                 <NavLink 

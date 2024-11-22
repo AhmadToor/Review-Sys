@@ -1,4 +1,4 @@
-import { PenLine, Star, X } from "lucide-react";
+import { Angry, PenLine, Smile, Star, X } from "lucide-react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader } from "../ui/card";
@@ -92,9 +92,9 @@ const BulkAiResponses = () => {
        <p className="text-gray-500 my-1 text-xs">You can send the replies to all the reviews at once.</p>
        <div className="grid pt-6 grid-cols-[6fr_5fr] lg:grid-cols-[3fr_2fr] gap-3">
        <div className="flex flex-col gap-4"> 
-        {reviews.map((review)=>{
+        {reviews.map((review,index)=>{
             return (
-                <Card className="border-none rounded-lg cursor-pointer w-full " onClick={()=>{setSelectedReview(review)}} >
+                <Card className="border-none rounded-lg cursor-pointer w-full " key={index} onClick={()=>{setSelectedReview(review)}} >
           
                 <CardContent className="p-3 pb-0">
                 <div className="justify-between flex flex-row items-center">
@@ -109,7 +109,7 @@ const BulkAiResponses = () => {
                         </div>
                     </div>
                     <div className="flex gap-2">
-                    <Badge className={`border-none  text-xs font-bold ${review.mood === 'Happy'? 'bg-dashboardButton' : 'bg-red-100 text-destructive'}`} >{review.mood === 'Happy'? '😊' : '😡'} {review.mood}</Badge>
+                    <Badge className={`border-none  text-xs font-bold ${review.mood === 'Happy'? 'bg-dashboardButton' : 'bg-red-100 '}`} >{review.mood === 'Happy'? <Smile className="stroke-1.5 fill-yellow-400 h-4 w-4 mr-1"/> : <Angry className="fill-red-400 stroke-1.5 h-4 w-4 mr-1"/>} {review.mood}</Badge>
                     <Badge className="w-fit text-xs flex items-center gap-1" > <Star className="stroke-none fill-yellow-400 h-4 w-4"/>  {review.rating}</Badge>
                     </div>
             </div>
@@ -142,7 +142,7 @@ const BulkAiResponses = () => {
                     </div>
                 </div>
                 <div className="flex gap-2">
-                <Badge className={`w-fit text-xs flex items-center ${selectedReview.mood === 'Happy'? 'bg-dashboardButton' : 'bg-red-100 text-destructive'}`} >{selectedReview.mood === 'Happy'? `😊`: `😡`}</Badge>
+                <Badge className={`w-fit text-xs flex items-center ${selectedReview.mood === 'Happy'? 'bg-dashboardButton' : 'bg-red-100 '}`} >{selectedReview.mood === 'Happy'? <Smile className="stroke-1.5 fill-yellow-400 h-4 w-4"/> : <Angry className="fill-red-400 stroke-1.5 h-4 w-4"/>}</Badge>
                 <Badge className="w-fit text-xs flex items-center gap-1" > <Star className="stroke-none fill-yellow-400 h-4 w-4"/>  {selectedReview.rating}</Badge>
                 </div>
         </div>

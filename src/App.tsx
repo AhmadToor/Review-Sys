@@ -22,9 +22,16 @@ type ShowChildrenContextType = {
   showChildren: boolean;
   setShowChildren: React.Dispatch<React.SetStateAction<boolean>>;
 };
+type BuisnessProfileContextType = {
+  buisnessProfile: string | null;
+  setBuisnessProfile: React.Dispatch<React.SetStateAction<string | null>>;
+};
 
-const buisnessProfile = localStorage.getItem('attachedBuisness');
-const BuisnessProfileContext = createContext<string | null>(buisnessProfile);
+const LSbuisnessProfile = localStorage.getItem('attachedBuisness');
+const BuisnessProfileContext = createContext<BuisnessProfileContextType>({
+  buisnessProfile: LSbuisnessProfile ? LSbuisnessProfile : null,
+  setBuisnessProfile: () => { },
+});
 const ShowChildrenContext = createContext<ShowChildrenContextType>({
   showChildren: false,
   setShowChildren: () => { } 
@@ -32,6 +39,7 @@ const ShowChildrenContext = createContext<ShowChildrenContextType>({
 
 function App() {
   const [showChildren, setShowChildren] = useState(false)
+  const [buisnessProfile, setBuisnessProfile] = useState(LSbuisnessProfile)
   useEffect(()=>{
     if(buisnessProfile){
       setShowChildren(true)
@@ -40,19 +48,23 @@ function App() {
     }
   },[buisnessProfile])
 
-  console.log(showChildren);
-  console.log(buisnessProfile);
+
   
   
   const showChildrenvalue = {showChildren, setShowChildren}
+  const buisnessProfileValue = {buisnessProfile, setBuisnessProfile}
   
    const Navigator = ()=>{
     return  <Navigate to='/dashboard'/>  
    }
   return (
-    <BuisnessProfileContext.Provider value={buisnessProfile}>
+    <BuisnessProfileContext.Provider value={buisnessProfileValue}>
       <ShowChildrenContext.Provider value={showChildrenvalue}>
-    <BrowserRouter>
+    <BrowserRouter
+    future={{
+      v7_startTransition: true,
+      v7_relativeSplatPath: true,
+    }}>
     <Routes>
       <Route path="/" element={<Navigator />} />
       <Route path="/dashboard" element={<DashboardPage/>} />
