@@ -31,7 +31,7 @@ const DashboardPage = () => {
     <DashboardWrapper>
       <div className="w-full h-full p-4 overflow-y-auto">
         <h1 className='text-2xl  text-start w-fit  font-bold bg-secondary-gradient bg-clip-text text-fill'>Dashboard</h1>
-        <div className="grid grid-cols-2 lg:grid-cols-4 my-4 justify-center gap-6  ">
+        <div className="grid grid-cols-2 min-[1320px]:grid-cols-4 my-4 justify-center gap-6  ">
         {
           dashboardData.map((data, index)=>{
             return (

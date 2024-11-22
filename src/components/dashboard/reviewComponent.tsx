@@ -127,7 +127,7 @@ const ReviewComponent = () => {
                 <Button variant='outline' className="border-none bg-dashboardButton hover:text-black text-xs p-2 px-3 text-primary">
                  <PencilLine/>  Edit
                 </Button>
-                <Button className="px-3 p-2 " onClick={()=>{navigate('/dashboard/emailresponse')}}>
+                <Button className="px-3 lg:px-4 p-2 text-xs lg:text-sm" onClick={()=>{navigate('/dashboard/emailresponse')}}>
                     Send Response
                 </Button>
                 </div>

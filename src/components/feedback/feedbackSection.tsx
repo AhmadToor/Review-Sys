@@ -2,7 +2,7 @@ import { MoveUpRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
 import FeedbackComponent from "./feedbackComponent";
-
+import SearchBar from "../_shared/searchBar";
 
 const FeedbackSection = () => {
   const navigate = useNavigate();
@@ -13,7 +13,8 @@ const FeedbackSection = () => {
         <h1 className="text-sm font-bold"> Feedback </h1>
         <p className="text-xs text-gray-500 mt-1">Send an email to ask for a feedback.</p>
       </div>
-      <div>
+      <div className="flex gap-1">
+      <SearchBar placeholder="Search Feedback" />
       <Button variant='outline' onClick={()=>{navigate('/feedback/createfeedback')}} className="border-none bg-dashboardButton hover:text-black text-xs text-primary">Create New Feedback <MoveUpRight /></Button>
       </div>
     </div>
