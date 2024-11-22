@@ -58,7 +58,7 @@ export function DashboardWrapper({ children }: DashboardWrapperProps) {
 
         <AppSidebar  className="absolute  top-16 h-sidebar-height" />
         <SidebarInset className="h-sidebar-height absolute top-16  right-0 w-full md:w-sidebar-inset-width overflow-y-auto">
-          <VectorBackground className="h-sidebar-height absolute top-16  right-0 w-full md:w-sidebar-inset-width "/>
+          <VectorBackground className="h-sidebar-height fixed top-16  right-0 w-full md:w-sidebar-inset-width "/>
           {showChildren ? 
           (
             <div className="z-[1]">
