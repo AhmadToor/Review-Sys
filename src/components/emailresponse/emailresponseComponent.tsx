@@ -1,4 +1,4 @@
-import { ArrowLeft, Mail, Star } from "lucide-react";
+import { Angry, ArrowLeft, Mail, Star } from "lucide-react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import EmailTextEditor from "./emailTextEditor";
@@ -59,7 +59,7 @@ const EmailResposeComponent = () => {
                     </div>
                 </div>
                 <div className="flex gap-2">
-                <Badge className="w-fit text-xs flex items-center " >😡</Badge>
+                <Badge className="w-fit text-xs flex items-center " ><Angry className="w-4 h-4 stroke-1.5 fill-red-400" /></Badge>
                 <Badge className="w-fit text-xs flex items-center gap-1" > <Star className="stroke-none fill-yellow-400 h-4 w-4"/>  1.5</Badge>
                 </div>
         </div>
