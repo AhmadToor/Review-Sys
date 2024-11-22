@@ -22,9 +22,9 @@ const AuthWrapper = ({children}: AuthWrapperProps) => {
     <div className="flex flex-col justify-start p-4 items-center overflow-y-auto h-full">
       <span className="self-start p-4 md:hidden"><Logo2 height='50' width='150' /></span>
       
-      {children}
+              {children}
+            </div>
     </div>
-  </div>
   )
 };
 

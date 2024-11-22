@@ -14,6 +14,7 @@ import AttachBuisnessIcon from '@/assets/svg/DashboardAttachBuisnessIcon.svg?rea
 import { useContext } from "react"
 import { DropdownMenu, DropdownMenuContent,  DropdownMenuItem,  DropdownMenuSeparator,  DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ShowChildrenContext } from "@/App"
+import VectorBackground from '@/assets/svg/Vector Background.svg?react'
 interface DashboardWrapperProps {
   children: React.ReactNode
 }
@@ -57,7 +58,13 @@ export function DashboardWrapper({ children }: DashboardWrapperProps) {
 
         <AppSidebar  className="absolute  top-16 h-sidebar-height" />
         <SidebarInset className="h-sidebar-height absolute top-16  right-0 w-full md:w-sidebar-inset-width ">
-          {showChildren ? children :
+          <VectorBackground className="h-sidebar-height absolute top-16  right-0 w-full md:w-sidebar-inset-width "/>
+          {showChildren ? 
+          (
+            <div className="z-[1]">
+              {children}
+            </div>
+          ) :
             (
               <div className="flex flex-col items-center justify-center h-full w-full">
                 <div className="flex items-center flex-col w-72">
