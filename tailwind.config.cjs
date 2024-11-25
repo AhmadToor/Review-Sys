@@ -10,10 +10,10 @@ module.exports = {
   	},
   	extend: {
   		backgroundImage: {
-  			auth: "url('./src/assets/images/background.png')",
+  			auth: "url('/src/assets/images/background.png')",
   			'primary-gradient': 'linear-gradient(98deg, #4648FF 36%, #FF7262 129.09%, #FFAEA5 173.03%)',
   			'secondary-gradient': 'linear-gradient(105deg, #4648FF 1%, #FF7262 67.09%, #FFAEA5 116.03%)',
-			sidebar : 'url(./src/assets/images/SideBar.png)',
+			sidebar : 'url(/src/assets/images/SideBar.png)',
 			header : "linear-gradient(105.98deg, rgba(255, 174, 165, 0.1) 0%, rgba(255, 114, 98, 0.1) 34.94%, rgba(70, 72, 255, 0.1) 100.03%);",
 			dashboard1:
 			"linear-gradient(105.98deg, rgba(70, 72, 255, 0.2) 0%, rgba(255, 114, 98, 0.2) 65.09%, rgba(255, 174, 165, 0.2) 100.03%)",
@@ -23,10 +23,7 @@ module.exports = {
 			"linear-gradient(105.96deg, rgba(252, 193, 136, 0.2) 0%, rgba(112, 66, 210, 0.2) 65.07%, rgba(46, 0, 142, 0.2) 100%)",
 
   		},
-		  
-		backgroundColor: {
-			sidebar : 'rgba(255, 255, 255, 0.1)'
-		},
+		
   		gridTemplateColumns: {
   			auth: '63fr 37fr'
   		},
