@@ -12,7 +12,7 @@ const SignupPage = () => {
           <SignUpForm/>
           <p className="text-sm text-center font-light my-2 text-gray-500 dark:text-gray-400">
      Already have an account?  
-    <Link to ='/' className="font-semibold cursor-pointer ml-1 text-black ">
+    <Link to ='/signin' className="font-semibold cursor-pointer ml-1 text-black ">
         Login now
     </Link>
   </p>

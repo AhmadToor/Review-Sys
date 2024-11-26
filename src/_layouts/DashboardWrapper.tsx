@@ -16,11 +16,13 @@ import { DropdownMenu, DropdownMenuContent,  DropdownMenuItem,  DropdownMenuSepa
 import { ShowChildrenContext } from "@/App"
 import VectorBackground from '@/assets/svg/Vector Background.svg?react'
 import { Link } from "react-router-dom"
+import { useAuth } from "@/hooks/useAuth"
 interface DashboardWrapperProps {
   children: React.ReactNode
 }
 
 export function DashboardWrapper({ children }: DashboardWrapperProps) {
+  const {handleLogout} = useAuth()
   const {showChildren} = useContext(ShowChildrenContext)
   return (
     <>
@@ -46,7 +48,7 @@ export function DashboardWrapper({ children }: DashboardWrapperProps) {
       <DropdownMenuContent className="w-52 mr-2 rounded-xl">
       <DropdownMenuItem className="cursor-pointer"><Link to='/settings' className="flex gap-2 w-full"><CircleUserRound/> Profile</Link></DropdownMenuItem>
       <DropdownMenuSeparator/>
-      <DropdownMenuItem className="cursor-pointer"><LogOut/> Log out</DropdownMenuItem>
+      <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}><LogOut/> Log out</DropdownMenuItem>
         
         
       </DropdownMenuContent>

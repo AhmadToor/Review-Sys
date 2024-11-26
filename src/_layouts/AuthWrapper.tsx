@@ -1,6 +1,7 @@
 import AuthIcon from '@/assets/svg/AuthIcon.svg?react'
 import Logo from '@/assets/svg/AuthLogo.svg?react'
 import Logo2 from '@/assets/svg/DashboardLogo.svg?react'
+import { Toaster } from "@/components/ui/toaster"
 interface AuthWrapperProps {
     children : React.ReactNode
 }
@@ -21,7 +22,7 @@ const AuthWrapper = ({children}: AuthWrapperProps) => {
     </div>
     <div className="flex flex-col justify-start p-4 items-center overflow-y-auto h-full">
       <span className="self-start p-4 md:hidden"><Logo2 height='50' width='150' /></span>
-      
+      <Toaster />
               {children}
             </div>
     </div>
