@@ -7,11 +7,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { useSignUp } from "@/hooks/useSignUp";
 import { Eye, EyeClosed, Loader2 } from "lucide-react";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 export function SignUpForm() {
   const {passwordType,confirmPasswordType,toggleConfirmPasswordVisibility, togglePasswordVisibility} = useAuth()
-  const navigate = useNavigate()
   const {handleSignup, handleSubmit, register, errors, isLoading} = useSignUp()
   const {toast} = useToast()
   useEffect(() => {
