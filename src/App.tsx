@@ -85,9 +85,9 @@ function App() {
             <Route path="/feedback/createfeedback" element={<PrivateRouter element={<CreateFeedbackPage/>} />} />
             <Route path="/signin" element={<SignInPage/>} />
             <Route path="/signup" element={<SignupPage/>} />
-            <Route path="/trypremium" element={<TryPremiumPage/>} />
-            <Route path="/verifyemail" element={<VerifyEmailPage/>} />
-            <Route path="/attachbuisness" element={<AttachBuisnessPage/>} />
+            <Route path="/trypremium" element={<PrivateRouter element={<TryPremiumPage/>}/>} />
+            <Route path="/verifyemail" element={<PrivateRouter element={<VerifyEmailPage/>}/>}/>
+            <Route path="/attachbuisness" element={<PrivateRouter element={<AttachBuisnessPage/>}/>}/>
           </Routes>
     </BrowserRouter>
     </ShowChildrenContext.Provider >
