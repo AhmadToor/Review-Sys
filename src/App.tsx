@@ -53,7 +53,13 @@ function App() {
   
   const showChildrenvalue = {showChildren, setShowChildren}
   const buisnessProfileValue = {buisnessProfile, setBuisnessProfile}
-  
+  interface PrivateRouterProps{
+    element: React.ReactElement
+  }
+   const PrivateRouter = ({element}: PrivateRouterProps)=>{
+        const accessToken = localStorage.getItem('accessToken');
+        return accessToken? element : <Navigate to='/signin'/>  
+   }
    const Navigator = ()=>{
     return  <Navigate to='/dashboard'/>  
    }
@@ -66,23 +72,23 @@ function App() {
       v7_relativeSplatPath: true,
     }}>
     <Routes>
-      <Route path="/" element={<Navigator />} />
-      <Route path="/dashboard" element={<DashboardPage/>} />
-      <Route path="/dashboard/emailresponse" element={<EmailResponsePage/>} />
-      <Route path="/dashboard/bulkreplies" element={<BulkRepliesPage/>} />
-      <Route path="/settings/upgrade" element={<UpgradeProPage/>} />
-      <Route path="/airesponses" element={<AiResponsePage/>} />
-      <Route path="/settings" element={<SettingsPage/>} />
-      <Route path="/emailtemplates" element={<EmailTemplatePage/>} />
-      <Route path="/emailtemplates/createtemplate" element={<CreateTemplatePage/>} />
-      <Route path="/feedback" element={<FeedbackPage/>} />
-      <Route path="/feedback/createfeedback" element={<CreateFeedbackPage/>} />
-      <Route path="/signin" element={<SignInPage/>} />
-      <Route path="/signup" element={<SignupPage/>} />
-      <Route path="/trypremium" element={<TryPremiumPage/>} />
-      <Route path="/verifyemail" element={<VerifyEmailPage/>} />
-      <Route path="/attachbuisness" element={<AttachBuisnessPage/>} />
-    </Routes>
+            <Route path="/" element={<Navigator />} />
+            <Route path="/dashboard" element={<PrivateRouter element={<DashboardPage/>} />} />
+            <Route path="/dashboard/emailresponse" element={<PrivateRouter element={<EmailResponsePage/>} />} />
+            <Route path="/dashboard/bulkreplies" element={<PrivateRouter element={<BulkRepliesPage/>} />} />
+            <Route path="/settings/upgrade" element={<PrivateRouter element={<UpgradeProPage/>} />} />
+            <Route path="/airesponses" element={<PrivateRouter element={<AiResponsePage/>} />} />
+            <Route path="/settings" element={<PrivateRouter element={<SettingsPage/>} />} />
+            <Route path="/emailtemplates" element={<PrivateRouter element={<EmailTemplatePage/>} />} />
+            <Route path="/emailtemplates/createtemplate" element={<PrivateRouter element={<CreateTemplatePage/>} />} />
+            <Route path="/feedback" element={<PrivateRouter element={<FeedbackPage/>} />} />
+            <Route path="/feedback/createfeedback" element={<PrivateRouter element={<CreateFeedbackPage/>} />} />
+            <Route path="/signin" element={<SignInPage/>} />
+            <Route path="/signup" element={<SignupPage/>} />
+            <Route path="/trypremium" element={<TryPremiumPage/>} />
+            <Route path="/verifyemail" element={<VerifyEmailPage/>} />
+            <Route path="/attachbuisness" element={<AttachBuisnessPage/>} />
+          </Routes>
     </BrowserRouter>
     </ShowChildrenContext.Provider >
     </BuisnessProfileContext.Provider>
