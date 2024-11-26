@@ -21,6 +21,7 @@ export const useAuth = () => {
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userinfo');
+    localStorage.removeItem('attachedBuisness');
     navigate('/signin');
   };
 
