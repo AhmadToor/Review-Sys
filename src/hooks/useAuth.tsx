@@ -1,3 +1,5 @@
+import { linkGoogleBuisnessAccountRequest } from "@/services/authServices";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -19,12 +21,25 @@ export const useAuth = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('userinfo');
-    localStorage.removeItem('attachedBuisness');
+    localStorage.clear()
     navigate('/signin');
   };
-
+  const linkGoogleBuisness = useMutation({
+    mutationKey : ['attach-buisness'],
+    mutationFn: async () => {
+        const response = await linkGoogleBuisnessAccountRequest()
+        return response.url
+    },
+onSuccess : (data)=>{
+  localStorage.setItem('attachedBuisness', 'next.js')
+  window.location.href = data
+},
+onError : (err)=>{
+    return err
+}})
+const handleLinkGoogleBuisnessAccount = ()=>{
+    linkGoogleBuisness.mutate()
+}
   return {
     passwordType,
     confirmPasswordType,
@@ -32,6 +47,7 @@ export const useAuth = () => {
     toggleConfirmPasswordVisibility,
     handleLogout,
     oldPasswordType,
-    toggleOldPasswordVisibility
+    toggleOldPasswordVisibility,
+    handleLinkGoogleBuisnessAccount
   };
 };

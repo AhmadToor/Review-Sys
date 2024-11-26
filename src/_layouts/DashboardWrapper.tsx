@@ -22,7 +22,7 @@ interface DashboardWrapperProps {
 }
 
 export function DashboardWrapper({ children }: DashboardWrapperProps) {
-  const {handleLogout} = useAuth()
+  const {handleLogout,handleLinkGoogleBuisnessAccount} = useAuth()
   const {showChildren} = useContext(ShowChildrenContext)
   return (
     <>
@@ -76,7 +76,7 @@ export function DashboardWrapper({ children }: DashboardWrapperProps) {
                   <h3 className="font-bold mt-4 text-2xl text-center">Your Google Business
                     Profile is not linked yet.</h3>
                   <p className="text-center text-gray-500 text-sm my-4">Please register or connect your Google Business location to continue using our app and unlock its full features. Thank you!</p>
-                  <Button><GoogleIcon /> Link Google Business Account</Button>
+                  <Button onClick={handleLinkGoogleBuisnessAccount}><GoogleIcon /> Link Google Business Account</Button>
                 </div>
               </div>
             )

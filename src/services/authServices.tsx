@@ -32,5 +32,17 @@ const signupRequest = async (values: SignupSchemaTypes) => {
         throw new Error('An unexpected error occurred');
     }
 };
+const linkGoogleBuisnessAccountRequest  = async () => {
+    try {
+        const response = await axiosInstance.post('/api/attachbuisness');
+        return response.data; 
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            throw error.response.data; 
+        }
 
-export { loginRequest , signupRequest};
+        throw new Error('An unexpected error occurred');
+    }
+};
+
+export { loginRequest , signupRequest, linkGoogleBuisnessAccountRequest};
