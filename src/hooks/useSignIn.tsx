@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { signinschema } from "@/schema/authSchema"
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from "react-router-dom";
 import { loginRequest } from "@/services/authServices";
 
 
@@ -13,7 +12,6 @@ export const useSignIn = ()=>{
         resolver: zodResolver(signinschema),
         mode: "onSubmit"
     })
-    const navigate = useNavigate()
     const mutation = useMutation({
         mutationKey : ['sign-in'],
         mutationFn: async (values: SigninSchemaTypes) => {
@@ -29,7 +27,7 @@ export const useSignIn = ()=>{
         localStorage.setItem('accessToken' , JSON.stringify(token))
         localStorage.setItem('attachedBuisness' , attachedBuisness)
         localStorage.setItem('user' , JSON.stringify(rest))
-        navigate('/')
+        window.location.href = '/'
     },
     onError : (err)=>{
         return err
