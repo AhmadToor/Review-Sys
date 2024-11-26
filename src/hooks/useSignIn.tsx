@@ -25,7 +25,7 @@ export const useSignIn = ()=>{
     onSuccess : (data)=>{
         const {token , attachedBuisness, ...rest} = data
         localStorage.setItem('accessToken' , JSON.stringify(token))
-        localStorage.setItem('attachedBuisness' , attachedBuisness)
+        localStorage.setItem('attachedBuisness' , JSON.stringify(attachedBuisness))
         localStorage.setItem('user' , JSON.stringify(rest))
         window.location.href = '/'
     },
