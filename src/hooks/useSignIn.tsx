@@ -25,9 +25,10 @@ export const useSignIn = ()=>{
         
     },
     onSuccess : (data)=>{
-        const {token , ...rest} = data
+        const {token , attachedBuisness, ...rest} = data
         localStorage.setItem('accessToken' , JSON.stringify(token))
-        localStorage.setItem('userinfo' , JSON.stringify(rest))
+        localStorage.setItem('attachedBuisness' , JSON.stringify(attachedBuisness))
+        localStorage.setItem('user' , JSON.stringify(rest))
         navigate('/')
     },
     onError : (err)=>{
