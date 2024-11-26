@@ -1,4 +1,4 @@
-import { SigninSchemaTypes } from '@/types/authtypes';
+import { SigninSchemaTypes, SignupSchemaTypes } from '@/types/authtypes';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
@@ -20,5 +20,17 @@ const loginRequest = async (values: SigninSchemaTypes) => {
         throw new Error('An unexpected error occurred');
     }
 };
+const signupRequest = async (values: SignupSchemaTypes) => {
+    try {
+        const response = await axiosInstance.post('/api/signup', values);
+        return response.data; 
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            throw error.response.data; 
+        }
 
-export { loginRequest };
+        throw new Error('An unexpected error occurred');
+    }
+};
+
+export { loginRequest , signupRequest};
