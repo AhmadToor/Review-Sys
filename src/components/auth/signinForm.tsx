@@ -13,7 +13,6 @@ const SigninForm = () => {
   const {passwordType, togglePasswordVisibility} = useAuth()
   const { handlelogin, handleSubmit, register, emailError,loginError, passwordError, isLoading } = useSignIn();
   const { toast } = useToast(); 
-  console.log(loginError);
   
   useEffect(() => {
     if (loginError) {
