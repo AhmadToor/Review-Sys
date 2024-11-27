@@ -5,7 +5,7 @@ import {
   // SidebarTrigger,
 } from "@/components/ui/sidebar"
 import Logo from '@/assets/svg/DashboardLogo.svg?react'
-import { Bell, CircleUserRound, LogOut } from "lucide-react"
+import { Bell, CircleUserRound, Loader2, LogOut } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import dp from '@/assets/images/Avatar.png'
 import { Button } from "@/components/ui/button"
@@ -22,7 +22,7 @@ interface DashboardWrapperProps {
 }
 
 export function DashboardWrapper({ children }: DashboardWrapperProps) {
-  const {handleLogout,handleLinkGoogleBuisnessAccount} = useAuth()
+  const {handleLogout,handleLinkGoogleBuisnessAccount, isLoading} = useAuth()
   const {showChildren} = useContext(ShowChildrenContext)
   return (
     <>
@@ -76,7 +76,16 @@ export function DashboardWrapper({ children }: DashboardWrapperProps) {
                   <h3 className="font-bold mt-4 text-2xl text-center">Your Google Business
                     Profile is not linked yet.</h3>
                   <p className="text-center text-gray-500 text-sm my-4">Please register or connect your Google Business location to continue using our app and unlock its full features. Thank you!</p>
-                  <Button onClick={handleLinkGoogleBuisnessAccount}><GoogleIcon /> Link Google Business Account</Button>
+                  <Button onClick={handleLinkGoogleBuisnessAccount} className="w-full">
+                    {isLoading?
+                    (
+                      <Loader2 className="animate-spin"/>
+                    ):
+                    <>
+                    
+                    <GoogleIcon /> Link Google Business Account
+                    </>}
+                    </Button>
                 </div>
               </div>
             )
