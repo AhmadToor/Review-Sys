@@ -1,9 +1,11 @@
+import { BuisnessProfileContext } from "@/App";
 import { linkGoogleBuisnessAccountRequest } from "@/services/authServices";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
+  const {setBuisnessProfile} = useContext(BuisnessProfileContext)
   const [passwordType, setPasswordType] = useState('password');
   const [oldPasswordType, setOldPasswordType] = useState('password');
   const [confirmPasswordType, setConfirmPasswordType] = useState('password');
@@ -20,19 +22,24 @@ export const useAuth = () => {
     setConfirmPasswordType(prevType => prevType === 'password' ? 'text' : 'password');
   };
 
-  const handleLogout = () => {
+  const handleLogout =  async () => {
     localStorage.clear()
+    setBuisnessProfile(null)
     navigate('/signin');
   };
+
+
   const linkGoogleBuisness = useMutation({
     mutationKey : ['attach-buisness'],
     mutationFn: async () => {
         const response = await linkGoogleBuisnessAccountRequest()
-        return response.url
+        return response
     },
 onSuccess : (data)=>{
   localStorage.setItem('attachedBuisness', 'next.js')
-  window.location.href = data
+  setBuisnessProfile(data.buisness)
+  navigate('/dashboard')
+  window.open(data.url, '_blank') 
 },
 onError : (err)=>{
     return err
@@ -47,6 +54,7 @@ const handleLinkGoogleBuisnessAccount = ()=>{
     toggleConfirmPasswordVisibility,
     handleLogout,
     oldPasswordType,
+    isLoading : linkGoogleBuisness.isPending,
     toggleOldPasswordVisibility,
     handleLinkGoogleBuisnessAccount
   };
