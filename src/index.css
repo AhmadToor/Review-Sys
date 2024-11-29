@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -324,15 +323,19 @@
   mask-composite: exclude; 
 }
 
-
+@font-face {
+  font-family: 'avenir';
+  src: url('/src/assets/fonts/Avenir\ Regular.ttf');
+}
 
 @layer base {
   * {
     @apply border-border;
   }
+  
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
-    font-family: sans-serif;
+    font-family: avenir;
   }
 }
