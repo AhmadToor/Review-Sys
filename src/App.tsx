@@ -74,7 +74,7 @@ function App() {
     <Routes>
             <Route path="/" element={<Navigator />} />
             <Route path="/dashboard" element={<PrivateRouter element={<DashboardPage/>} />} />
-            <Route path="/dashboard/emailresponse" element={<PrivateRouter element={<EmailResponsePage/>} />} />
+            <Route path="/dashboard/emailresponse/:reviewId" element={<PrivateRouter element={<EmailResponsePage/>} />} />
             <Route path="/dashboard/bulkreplies" element={<PrivateRouter element={<BulkRepliesPage/>} />} />
             <Route path="/settings/upgrade" element={<PrivateRouter element={<UpgradeProPage/>} />} />
             <Route path="/airesponses" element={<PrivateRouter element={<AiResponsePage/>} />} />
