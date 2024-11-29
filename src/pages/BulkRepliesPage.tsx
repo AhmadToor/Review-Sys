@@ -7,7 +7,7 @@ const BulkRepliesPage = () => {
   return (
     <DashboardWrapper>
          <div className="w-full h-full p-6 overflow-y-auto">
-         <h1 className='text-2xl  text-start w-fit  font-bold bg-secondary-gradient bg-clip-text text-fill'>Email Response</h1>
+         <h1 className='text-2xl  text-start w-fit  font-bold bg-secondary-gradient bg-clip-text text-fill'>Bulk Replies</h1>
          <Breadcrumb>
   <BreadcrumbList className="text-xs mt-2">
     <BreadcrumbItem>
