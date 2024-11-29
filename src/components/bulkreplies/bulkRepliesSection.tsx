@@ -3,16 +3,19 @@ import { Button } from "../ui/button";
 import BulkRepliesComponent from "./bulkRepliesComponent";
 import BulkAiResponses from "./bulkAiResponses";
 import SearchBar from "../_shared/searchBar";
+import { Review } from "@/types/dashboardtypes";
+import { reviews } from "@/data/unRepliedReviews";
 
 const BulkRepliesSection = () => {
   const [isAiResponse, setIsAiresponse] = useState(false)
+  const [selectedReviewsArray, setSelectedReviewsArray] = useState<Review[]>([reviews[0]]); 
   return (
     <div className="mt-6">
      
      
        {isAiResponse? <BulkAiResponses/>
        : (<>
-        <h2 className="font-bold">46 Reviews Selected</h2>
+        <h2 className="font-bold">Select Reviews</h2>
         <p className="text-gray-500 my-1 text-xs">Click on card to unselect the reviews, you do not want to respond to. </p>
         <div className="flex justify-between items-center">
         <ul className="text-sm flex flex-row gap-4 bg-white rounded-full p-2 my-3 px-4 w-max">
@@ -25,10 +28,11 @@ const BulkRepliesSection = () => {
         </ul>
         <div className="flex gap-1">
         <SearchBar placeholder="Search Ai Responses" className="hidden lg:flex"  />
-        <Button variant='outline' className="border-none bg-dashboardButton hover:text-black text-xs text-primary">Select All</Button>
+        <Button variant='outline' onClick={()=>{setSelectedReviewsArray(reviews)}} className="border-none bg-dashboardButton hover:text-black text-xs text-primary">Select All</Button>
         </div>
         </div>
-        <BulkRepliesComponent setAiResponse={setIsAiresponse}/></>)
+        <BulkRepliesComponent setAiResponse={setIsAiresponse} selectedReviewsArray={selectedReviewsArray} setSelectedReviewsArray={setSelectedReviewsArray} />
+        </>)
        }
         </div>
    

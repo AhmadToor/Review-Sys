@@ -7,75 +7,28 @@ import {  Dispatch, SetStateAction, useState } from "react";
 import { Button } from "../ui/button";
 import LoadingIcon from '@/assets/svg/LoadingIcon.svg?react'
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-interface Review {
-    fullname: string;
-    avatar: string;
-    rating: number;
-    reviewmesg: string;
-    mood: string;
-}
+import { Review } from "@/types/dashboardtypes";
+import { reviews } from "@/data/unRepliedReviews";
 
-const reviews: Review[] = [
-    {
-        fullname : 'Laoshe Lost',
-        avatar : 'https://github.com/shadcn.png',
-        rating : 4.5,
-        reviewmesg : 'What a fantastic application. It has made my day by taking away the hassle of replying to the customer. I highly recommend it but giving it 4.5 because why did the developer not developed this earlier.',
-        mood : 'Happy'
-    }, 
-    {
-        fullname : 'Maoshe Found',
-        avatar : 'https://github.com/shadcn.png',
-        rating : 1.1,
-        reviewmesg : 'What a pathetic service being provided. The tables were not clean and the flies were coming at us like the drones. And we were trying to save ourselves from these drone attacks in the meanwhile one of them succeeded to ruin our food at the table. It crashed into the food.',
-        mood : 'Angry'
-    }, 
-    {
-        fullname : 'Laoshe Lost',
-        avatar : 'https://github.com/shadcn.png',
-        rating : 4.9,
-        reviewmesg : 'What a fantastic application. It has made my day by taking away the hassle of replying to the customer. I highly recommend it but giving it 4.5 because why did the developer not developed this earlier.',
-        mood : 'Happy'
-    },
-    {
-        fullname : 'Maoshe Found',
-        avatar : 'https://github.com/shadcn.png',
-        rating : 2.1,
-        reviewmesg : 'What a pathetic service being provided. The tables were not clean and the flies were coming at us like the drones. And we were trying to save ourselves from these drone attacks in the meanwhile one of them succeeded to ruin our food at the table. It crashed into the food.',
-        mood : 'Angry'
-    },
-    {
-        fullname : 'Maoshe Found',
-        avatar : 'https://github.com/shadcn.png',
-        rating : 2.1,
-        reviewmesg : 'What a pathetic service being provided. The tables were not clean and the flies were coming at us like the drones. And we were trying to save ourselves from these drone attacks in the meanwhile one of them succeeded to ruin our food at the table. It crashed into the food.',
-        mood : 'Angry'
-    },
-    {
-        fullname : 'Maoshe Found',
-        avatar : 'https://github.com/shadcn.png',
-        rating : 2.1,
-        reviewmesg : 'What a pathetic service being provided. The tables were not clean and the flies were coming at us like the drones. And we were trying to save ourselves from these drone attacks in the meanwhile one of them succeeded to ruin our food at the table. It crashed into the food.',
-        mood : 'Angry'
-    },
-    {
-        fullname : 'Maoshe Found',
-        avatar : 'https://github.com/shadcn.png',
-        rating : 2.1,
-        reviewmesg : 'What a pathetic service being provided. The tables were not clean and the flies were coming at us like the drones. And we were trying to save ourselves from these drone attacks in the meanwhile one of them succeeded to ruin our food at the table. It crashed into the food.',
-        mood : 'Angry'
-    },
-    
-]
 interface Props {
     setAiResponse : Dispatch<SetStateAction<boolean>>
+    selectedReviewsArray: Review[]; 
+    setSelectedReviewsArray: Dispatch<SetStateAction<Review[]>>
 }
-const BulkRepliesComponent = ({setAiResponse}: Props) => {
+const BulkRepliesComponent = ({setAiResponse , setSelectedReviewsArray, selectedReviewsArray}: Props) => {
     const [selectedReview, setSelectedReview] = useState<Review>(reviews[0]); 
     const [isDialogOpen, setIsDialogOpen] = useState(false)
+    
    
   const handleReviewClick = (review : Review ) => {
-    setSelectedReview(review); 
+    setSelectedReview(review);
+    if (selectedReviewsArray.includes(review)){
+      setSelectedReviewsArray(selectedReviewsArray.filter(item => item !== review))
+    }else {
+      setSelectedReviewsArray([review, ...selectedReviewsArray]) 
+
+    }
+    
   };
   const handleDialogTrigger = () => {
     setIsDialogOpen(true);
@@ -90,7 +43,7 @@ const BulkRepliesComponent = ({setAiResponse}: Props) => {
         {reviews.map((review, index)=>{
             return (
                 <div className="flex gap-4 items-center cursor-pointer" key={index} onClick={()=>{handleReviewClick(review)}}>
-                    <div className={selectedReview == review? `bg-primary w-max rounded-full p-1.5` :`bg-gray-200 w-max rounded-full p-1.5`}><Check className={selectedReview === review? `h-3 w-3 stroke-white`: ` h-3 w-3`}/></div>
+                    <div className={selectedReviewsArray.includes(review)? `bg-primary w-max rounded-full p-1.5` :`bg-gray-200 w-max rounded-full p-1.5`}><Check className={selectedReviewsArray.includes(review)? `h-3 w-3 stroke-white`: ` h-3 w-3`}/></div>
                     <Card className="border-none rounded-lg cursor-pointer w-full " >
           
                 <CardContent className="p-3">
@@ -106,7 +59,7 @@ const BulkRepliesComponent = ({setAiResponse}: Props) => {
                         </div>
                     </div>
                     <div className="flex gap-2">
-                    <Badge className={`border-none  text-xs font-bold ${review.mood === 'Happy'? 'bg-dashboardButton' : 'bg-red-100 '}`} >{review.mood === 'Happy'? <Smile className="stroke-1.5 fill-yellow-400 h-4 w-4 mr-1"/> : <Angry className="fill-red-400 stroke-1.5 h-4 w-4 mr-1"/>} {review.mood}</Badge>
+                    <Badge className={`border-none  text-xs font-bold ${review.mood === 'Happy'? 'bg-dashboardButton' : 'bg-red-100 text-destructive '}`} >{review.mood === 'Happy'? <Smile className="stroke-1.5 fill-yellow-400 h-4 w-4 "/> : <Angry className="fill-red-400 stroke-black stroke-1.5 h-4 w-4 "/>}</Badge>
                     <Badge className="w-fit text-xs flex items-center gap-1" > <Star className="stroke-none fill-yellow-400 h-4 w-4"/>  {review.rating}</Badge>
                     </div>
             </div>
@@ -147,14 +100,14 @@ const BulkRepliesComponent = ({setAiResponse}: Props) => {
         
         <div className="absolute bottom-3 right-3 left-3">
                 <hr className="my-4" />
-                <Badge className={`w-fit text-xs flex items-center ${selectedReview.mood === 'Happy' ? 'bg-dashboardButton' : 'bg-red-100 '}`}>
+                <Badge className={`w-fit text-xs flex items-center ${selectedReview.mood === 'Happy' ? 'bg-dashboardButton' : 'bg-red-100 text-destructive '}`}>
   {selectedReview.mood === 'Happy' ? (
     <>
       <Smile className="stroke-1.5 fill-yellow-400 h-4 w-4 mr-1" /> {selectedReview.mood}
     </>
   ) : (
     <>
-      <Angry className="stroke-1.5 fill-red-400 h-4 w-4 mr-1" /> {selectedReview.mood}
+      <Angry className="stroke-1.5 fill-red-400 stroke-black h-4 w-4 mr-1" /> {selectedReview.mood}
     </>
   )}
 </Badge>
@@ -163,7 +116,7 @@ const BulkRepliesComponent = ({setAiResponse}: Props) => {
     
     <Dialog open={isDialogOpen} >
       <DialogTrigger asChild >
-      <Button onClick={handleDialogTrigger}>Generate Responses for 46 reviews</Button>
+      <Button onClick={handleDialogTrigger} disabled={selectedReviewsArray.length > 0? false : true} >Generate Responses for {selectedReviewsArray.length} reviews</Button>
       </DialogTrigger>
       <DialogContent showCloseButton={false} className="sm:max-w-[350px] gap-0 p-4  items-center flex flex-col">
         <LoadingIcon/>
