@@ -9,15 +9,20 @@ import Done from '@/assets/svg/DoneIcon.svg?react'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Review } from "@/types/dashboardtypes";
-import { reviews } from "@/data/unRepliedReviews";
+import { aiResponses, reviews } from "@/data/unRepliedReviews";
 
 
 const ReviewComponent = () => {
     const [selectedReview, setSelectedReview] = useState<Review | null>(reviews.length > 0 ? reviews[0] : null);
+    const [textareaValue, setTextareaValue] = useState<string>(aiResponses.find(response => response.reviewId === selectedReview?.id)?.aiResponse || '');
     const [readOnly, setReadOnly] = useState(true)
     const navigate = useNavigate();
     const handleReviewClick = (review: Review) => {
         setSelectedReview(review);
+        setTextareaValue(aiResponses.find(response => response.reviewId === selectedReview?.id)?.aiResponse || '');
+    };
+    const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setTextareaValue(event.target.value);
     };
 
     return (
@@ -53,7 +58,7 @@ const ReviewComponent = () => {
                                                 <Button className="border-none bg-dashboardButton text-xs font-bold" onClick={() => { handleReviewClick(review) }} variant='outline'><AiIcon /> Generate Response</Button>
                                             ) : (
                                                 <div className="gap-2 flex">
-                                                    <Button className="border-none bg-dashboardButton rounded-full px-3 text-xs font-bold" onClick={() => { navigate('/dashboard/emailresponse')}} variant='outline'>Email Response <MoveUpRight className="stroke-primary" /> </Button>
+                                                    <Button className="border-none bg-dashboardButton rounded-full px-3 text-xs font-bold" onClick={()=>{navigate(`/dashboard/emailresponse/${review.id}`)}} variant='outline'>Email Response <MoveUpRight className="stroke-primary" /> </Button>
                                                     <Button className="border-none bg-dashboardButton rounded-full px-3 text-xs font-bold" onClick={() => { handleReviewClick(review) }} variant='outline'><AiIcon /></Button>
                                                 </div>
                                             )
@@ -93,7 +98,7 @@ const ReviewComponent = () => {
                                     <div className="flex flex-col mb-40 items-between h-full justify-between">
                                         <div>
                                             <h1 className="font-bold my-2 text-sm">Ai Response</h1>
-                                            <textarea readOnly={readOnly} className=" focus:outline-none focus:border-none text-sm  w-full h-[150px] px-1 bg-transparent resize-none no-scrollbar ">Thank you for your fantastic feedback! We're delighted to hear that our application has made your day easier and taken the hassle out of replying to customers. As for why we didn't develop this earlier, well, let's just say good things take time! We're constantly striving to improve, and your recommendation means a lot to us. Thanks for the 4.5 stars—we'll aim for a perfect 5 next time!</textarea>
+                                            <textarea readOnly={readOnly}  className=" focus:outline-none focus:border-none text-sm  w-full h-[150px] px-1 bg-transparent resize-none no-scrollbar " value={textareaValue}  onChange={handleTextareaChange} />
                                         </div>
                                     </div>
                                 </CardContent>

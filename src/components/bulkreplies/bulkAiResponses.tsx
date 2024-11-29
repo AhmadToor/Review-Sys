@@ -9,12 +9,12 @@ import LoadingIcon from '@/assets/svg/LoadingIcon.svg?react'
 import DoneIcon from '@/assets/svg/DoneIcon.svg?react'
 import { useNavigate } from "react-router-dom";
 import { Review } from "@/types/dashboardtypes";
-import { reviewsWithMesg } from "@/data/unRepliedReviews";
+import { reviews } from "@/data/unRepliedReviews";
 
 
 
 const BulkAiResponses = () => {
-    const [selectedReview, setSelectedReview] = useState<Review>(reviewsWithMesg[0]); 
+    const [selectedReview, setSelectedReview] = useState<Review>(reviews[0]); 
     const [aiResponseReadable, setAiResponseReadable] = useState(true)
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [secondDialog, setSecondDialog] = useState(false)
@@ -33,11 +33,11 @@ const BulkAiResponses = () => {
     }
   return (
     <div>
-       <h2 className="font-bold">{reviewsWithMesg.length} Responses Generated</h2>
+       <h2 className="font-bold">{reviews.length} Responses Generated</h2>
        <p className="text-gray-500 my-1 text-xs">You can send the replies to all the reviews at once.</p>
        <div className="grid pt-6 grid-cols-[6fr_5fr] lg:grid-cols-[3fr_2fr] gap-3">
        <div className="flex flex-col gap-4"> 
-        {reviewsWithMesg.map((review,index)=>{
+        {reviews.map((review,index)=>{
             return (
                 <Card className="border-none rounded-lg cursor-pointer w-full " key={index} onClick={()=>{setSelectedReview(review)}} >
           
@@ -132,7 +132,7 @@ const BulkAiResponses = () => {
       
       <DialogContent showCloseButton={false} className="sm:max-w-[350px] gap-0 p-4  items-center flex flex-col">
         <DoneIcon/>
-        <h1 className="font-bold mt-6 mb-1">{reviewsWithMesg.length} Responses Sent</h1>
+        <h1 className="font-bold mt-6 mb-1">{reviews.length} Responses Sent</h1>
         <p className="text-gray-500 text-sm text-center">Just hold my bear!! It can take a while to send all the responses.</p>
         <Button variant='outline' onClick={()=>{setSecondDialog(false); navigate('/dashboard')}} className="border-none w-full mt-2 bg-gray-200 hover:text-black text-xs ">Lets Go Back</Button>
       </DialogContent>
