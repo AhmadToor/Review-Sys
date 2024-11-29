@@ -26,7 +26,22 @@ const CreateFeedbackComponent = () => {
     setTimeout(() => {
         setIsDialogOpen(false);
         setButtonDisabled(false)
-        setResponseTest(EmailTextEditor)
+        setResponseTest(<EmailTextEditor>
+            {` Hi Laoshe👋
+  
+  We have an exciting update for you: there are now no fewer than 3 brand new places ready to rent in Lahore.
+  
+  Are you curious about the available rental options in Lahore?
+  
+  Interesting options have recently been added that seamlessly meet your wishes for 
+  your new stay. Do you see something that appeals to you? You have the option to 
+  arrange a viewing directly via the website or ask questions about the place in question. 
+  It’s now easier than ever to take your next step towards your ideal home.
+  
+  Maan jao na yawr. 
+  
+   Thanks`}
+          </EmailTextEditor>)
     }, 3000);
 };
 

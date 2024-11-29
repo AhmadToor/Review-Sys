@@ -1,13 +1,15 @@
-import {LexicalComposer} from '@lexical/react/LexicalComposer';
-import {ContentEditable} from '@lexical/react/LexicalContentEditable';
-import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary';
-import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
+import React, { useEffect, useRef } from 'react';
+import { LexicalComposer } from '@lexical/react/LexicalComposer';
+import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import {
   $createParagraphNode,
   $createTextNode,
   $getRoot,
   ParagraphNode,
   TextNode,
+  LexicalEditor,
 } from 'lexical';
 
 import EditorTheme from './EditorTheme';
@@ -15,37 +17,58 @@ import ToolbarPlugin from './ToolbarPlugin';
 
 const placeholder = 'Enter some rich text...';
 
-
-
-function DefaultEditorValue() {
+function DefaultEditorValue(editor: LexicalEditor, initialValue: string) {
+  editor.update(() => {
     const root = $getRoot();
-    if (root.getFirstChild() === null) {
-      const paragraph = $createParagraphNode();
-      paragraph.append(
-        $createTextNode("Hi Laoshe👋\n\n"),
-        $createTextNode("We have an exciting update for you: there are now no fewer than 3 brand new places ready to rent in Lahore.\n\n"),
-        $createTextNode("Are you curious about the available rental options in Lahore?\n\n"),
-        $createTextNode("Interesting options have recently been added that seamlessly meet your wishes for your new stay. Do you see something that appeals to you? You have the option to arrange a viewing directly via the website or ask questions about the place in question. It’s now easier than ever to take your next step towards your ideal home.\n\n"),
-        $createTextNode("Maan jao na yawr.\nThanks")
-      );
-      root.append(paragraph);
-    }
-  }
-const editorConfig = {
+    root.clear(); 
+
    
-    editorState : DefaultEditorValue,
-    namespace: 'Email Editor',
-    nodes: [ParagraphNode, TextNode],
-    onError(error: Error) {
-      throw error;
-    },
-    theme: EditorTheme,
+    const paragraphs = initialValue.split(/\n\s*\n/);
+
+    paragraphs.forEach((paragraphText) => {
+      const paragraph = $createParagraphNode();
+      const textNodes = paragraphText.split('\n').map((text) => $createTextNode(text));
+      paragraph.append(...textNodes);
+      root.append(paragraph);
+    });
+  });
+}
+
+const editorConfig = {
+  editorState: (editor: LexicalEditor) => {
+    DefaultEditorValue(editor, ""); 
+  },
+  namespace: 'Email Editor',
+  nodes: [ParagraphNode, TextNode],
+  onError(error: Error) {
+    throw error;
+  },
+  theme: EditorTheme,
+};
+
+interface EmailTextEditorProps extends React.HTMLProps<HTMLDivElement> {
+  children: string;
+}
+
+export default function EmailTextEditor({ children, ...props }: EmailTextEditorProps) {
+  const editorRef = useRef<LexicalEditor | null>(null);
+
+ 
+  const editorStateInitializer = (editor: LexicalEditor) => {
+    editorRef.current = editor;
+    DefaultEditorValue(editor, children); 
   };
 
-export default function EmailTextEditor() {
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.update(() => {
+        DefaultEditorValue(editorRef.current as LexicalEditor, children); 
+      });
+    }
+  }, [children]);
   return (
-    <LexicalComposer initialConfig={editorConfig}>
-      <div className="editor-container">
+    <LexicalComposer initialConfig={{ ...editorConfig, editorState: editorStateInitializer }}>
+      <div className="editor-container" {...props}>
         <ToolbarPlugin />
         <div className="editor-inner rounded-b-xl">
           <RichTextPlugin
@@ -60,8 +83,8 @@ export default function EmailTextEditor() {
             }
             ErrorBoundary={LexicalErrorBoundary}
           />
- </div>
         </div>
-      </LexicalComposer>
-    );
+      </div>
+    </LexicalComposer>
+  );
 }
