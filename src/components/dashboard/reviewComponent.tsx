@@ -19,7 +19,7 @@ const ReviewComponent = () => {
     const navigate = useNavigate();
     const handleReviewClick = (review: Review) => {
         setSelectedReview(review);
-        setTextareaValue(aiResponses.find(response => response.reviewId === selectedReview?.id)?.aiResponse || '');
+        setTextareaValue(aiResponses.find(response => response.reviewId === review?.id)?.aiResponse || '');
     };
     const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setTextareaValue(event.target.value);

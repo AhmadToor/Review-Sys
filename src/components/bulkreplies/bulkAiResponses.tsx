@@ -9,13 +9,14 @@ import LoadingIcon from '@/assets/svg/LoadingIcon.svg?react'
 import DoneIcon from '@/assets/svg/DoneIcon.svg?react'
 import { useNavigate } from "react-router-dom";
 import { Review } from "@/types/dashboardtypes";
-import { reviews } from "@/data/unRepliedReviews";
+import { aiResponses, reviews } from "@/data/unRepliedReviews";
 
 
 
 const BulkAiResponses = () => {
     const [selectedReview, setSelectedReview] = useState<Review>(reviews[0]); 
     const [aiResponseReadable, setAiResponseReadable] = useState(true)
+    const [textareaValue, setTextareaValue] = useState<string>(aiResponses.find(response => response.reviewId === selectedReview?.id)?.aiResponse || '');
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [secondDialog, setSecondDialog] = useState(false)
    const navigate = useNavigate()
@@ -28,9 +29,17 @@ const BulkAiResponses = () => {
         
     }, 3000);
 };
-    const handleAiResponseEditable = ()=>{
+const handleReviewClick = (review: Review) => {
+    setSelectedReview(review);
+    setTextareaValue(aiResponses.find(response => response.reviewId === review?.id)?.aiResponse || '');
+};
+    const handleAiResponseEditable = (review: Review)=>{
         setAiResponseReadable(!aiResponseReadable)
+        setTextareaValue(aiResponses.find(response => response.reviewId === review?.id)?.aiResponse || '');
     }
+    const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setTextareaValue(event.target.value);
+    };
   return (
     <div>
        <h2 className="font-bold">{reviews.length} Responses Generated</h2>
@@ -39,7 +48,7 @@ const BulkAiResponses = () => {
        <div className="flex flex-col gap-4"> 
         {reviews.map((review,index)=>{
             return (
-                <Card className="border-none rounded-lg cursor-pointer w-full " key={index} onClick={()=>{setSelectedReview(review)}} >
+                <Card className="border-none rounded-lg cursor-pointer w-full " key={index} onClick={()=>{handleReviewClick(review)}} >
           
                 <CardContent className="p-3 pb-0">
                 <div className="justify-between flex flex-row items-center">
@@ -58,12 +67,12 @@ const BulkAiResponses = () => {
                     <Badge className="w-fit text-xs flex items-center gap-1" > <Star className="stroke-none fill-yellow-400 h-4 w-4"/>  {review.rating}</Badge>
                     </div>
             </div>
-            <p className="italic mt-2 text-xs text-gray-500">{review.reviewmesg.length > 80 ? review.reviewmesg.slice(0, 80) + '...' : review.reviewmesg}</p>
+            <p className="italic mt-2 text-xs text-gray-500">{review.reviewmesg.length > 100 ? review.reviewmesg.slice(0, 100) + '...' : review.reviewmesg}</p>
                 </CardContent>
                 <CardContent className="p-3 pt-0">
                     <hr className="my-1.5" />
                     <h1 className="font-bold text-sm">Ai Response</h1>
-                    <p className="text-xs">Thank you for your fantastic feedback! We're delighted to hear that our application has made your day easier and taken the hassle out of replying to customers. As for why we didn't develop this earlier, well, let's just say  good things take time!  We're constantly striving to improve, and your recommendation means a lot to us. Thanks for the 4.5 stars—we'll aim for a perfect 5 next time!</p>
+                    <p className="text-xs">{aiResponses.find(response => response.reviewId === review.id)?.aiResponse}</p>
                 </CardContent>
             </Card>
             )
@@ -97,7 +106,7 @@ const BulkAiResponses = () => {
         </CardContent>
         <CardContent className="mb-24 p-3 pt-0">
             <h1 className="font-bold ">Ai Response</h1>
-            <textarea readOnly={aiResponseReadable}  className=" focus:outline-none focus:border-none text-sm mt-2 w-full h-[150px] py-2 px-1 bg-transparent resize-none no-scrollbar ">Thank you for your fantastic feedback! We're delighted to hear that our application has made your day easier and taken the hassle out of replying to customers. As for why we didn't develop this earlier, well, let's just say  good things take time!  We're constantly striving to improve, and your recommendation means a lot to us. Thanks for the 4.5 stars—we'll aim for a perfect 5 next time!</textarea>  
+            <textarea onChange={handleTextareaChange} readOnly={aiResponseReadable}  className=" focus:outline-none focus:border-none text-sm mt-2 w-full h-[150px] py-2 px-1 bg-transparent resize-none no-scrollbar " value={textareaValue}/>  
         </CardContent>
         
         <div className="absolute bottom-3 right-3 left-3">
@@ -106,12 +115,12 @@ const BulkAiResponses = () => {
                 {aiResponseReadable?  <div className="flex justify-between">
                 <Button variant='outline' className="border-none bg-dashboardButton hover:text-black text-xs text-primary"> Regenerate</Button>
                 <div className="flex gap-2">
-                <Button variant='outline' onClick={handleAiResponseEditable} className="border-none bg-dashboardButton hover:text-black text-xs "><PenLine  className="stroke-primary"/> Edit</Button>
+                <Button variant='outline' onClick={()=>{setAiResponseReadable(!aiResponseReadable)}} className="border-none bg-dashboardButton hover:text-black text-xs "><PenLine  className="stroke-primary"/> Edit</Button>
                 <Button variant='outline' className="border-none bg-dashboardButton hover:text-black text-xs"><X className="stroke-red-500"/> Remove</Button>                
 
                 </div> </div> : <div className="flex justify-end gap-2">
-                <Button variant='outline' className="border-none bg-dashboardButton hover:text-black text-xs ">Cancel</Button>
-                <Button onClick={handleAiResponseEditable}  className=" text-xs">Save</Button>                
+                <Button variant='outline' className="border-none bg-dashboardButton hover:text-black text-xs " onClick={()=>{handleAiResponseEditable(selectedReview)}} >Cancel</Button>
+                <Button onClick={()=>{setAiResponseReadable(!aiResponseReadable)}}  className=" text-xs">Save</Button>                
                     </div>}
             </div>
     </Card>

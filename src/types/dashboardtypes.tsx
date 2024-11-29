@@ -5,6 +5,11 @@ interface ReviewType {
     rating: string;
     reviewmesg: string;
     mood: string;
+    email : string;
 }
-
+interface EmailTemplateType {
+    subject : string;
+    body: string;
+}
 export type Review = ReviewType
+export type EmailTemplate = EmailTemplateType
