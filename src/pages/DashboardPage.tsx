@@ -37,7 +37,7 @@ const DashboardPage = () => {
             return (
               <Card key={index} className="rounded-3xl  h-44 min-w-64 pt-3 px-2 border-none pb-8">
             <CardContent className="pb-2 px-1  w-full h-full">
-              <div className={`items-center flex justify-center  rounded-3xl text-3xl w-full h-full font-bold ${data.background}`}>{data.content}</div>
+              <div className={`items-center flex justify-center  rounded-[18px] text-3xl w-full h-full font-bold ${data.background}`}>{data.content}</div>
               <h3 className="text-center my-2">{data.title}</h3>
             </CardContent>
           </Card>
