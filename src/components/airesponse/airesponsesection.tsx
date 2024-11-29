@@ -4,6 +4,7 @@ import { MoveUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ReviewComponent from "../dashboard/reviewComponent";
 import SearchBar from "../_shared/searchBar";
+import { reviews } from "@/data/unRepliedReviews";
 
 const AiResponseSection = () => {
   const navigate = useNavigate()
@@ -19,13 +20,15 @@ const AiResponseSection = () => {
         <li className="cursor-pointer rounded-full p-2 w-max">2.0 Stars</li>
         <li className="cursor-pointer rounded-full p-2 w-max">1.0 Stars</li>
         </ul>
-        <div className="flex gap-1">
-        <SearchBar placeholder="Search Ai Responses" className="hidden lg:flex" />
-        <Button variant='outline' onClick={()=>{navigate('/dashboard/bulkreplies')}} className="border-none bg-dashboardButton hover:text-black text-xs text-primary">
-        Generate Bulk Replies
-        <MoveUpRight  />
-        </Button>
-        </div>
+        {reviews.length>0 && (
+          <div className="flex gap-1">
+          <SearchBar placeholder="Search Ai Responses" className="hidden lg:flex" />
+          <Button variant='outline' onClick={()=>{navigate('/dashboard/bulkreplies')}} className="border-none bg-dashboardButton hover:text-black text-xs text-primary">
+          Generate Bulk Replies
+          <MoveUpRight  />
+          </Button>
+          </div>
+        )}
        
 
         </div>
