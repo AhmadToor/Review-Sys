@@ -24,7 +24,7 @@ const UnRepliedRespones = () => {
 
         </div>
 
-        <ReviewComponent/>
+        <ReviewComponent reviews={reviews}/>
     </div>
   )
 };
