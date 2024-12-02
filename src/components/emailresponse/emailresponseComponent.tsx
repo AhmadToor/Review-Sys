@@ -30,7 +30,7 @@ const EmailResposeComponent = () => {
                     <hr />
 
                 </CardHeader>
-                <CardContent className="mb-10">
+                <CardContent className="mb-16">
                     <EmailTextEditor>
                         {selectedEmailTemplate.body}
                     </EmailTextEditor>

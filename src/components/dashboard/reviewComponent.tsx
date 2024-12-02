@@ -6,13 +6,14 @@ import { Button } from "../ui/button";
 import AiResponseIcon from '@/assets/svg/NavAiReasponseIcon.svg?react'
 import AiIcon from '@/assets/svg/PremiumPrimaryIcon.svg?react'
 import Done from '@/assets/svg/DoneIcon.svg?react'
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Review } from "@/types/dashboardtypes";
 import { aiResponses, reviews } from "@/data/unRepliedReviews";
 
 
 const ReviewComponent = () => {
+    const reviewViewerRef = useRef<HTMLDivElement | null>(null);
     const [selectedReview, setSelectedReview] = useState<Review | null>(reviews.length > 0 ? reviews[0] : null);
     const [textareaValue, setTextareaValue] = useState<string>(aiResponses.find(response => response.reviewId === selectedReview?.id)?.aiResponse || '');
     const [readOnly, setReadOnly] = useState(true)
@@ -20,6 +21,7 @@ const ReviewComponent = () => {
     const handleReviewClick = (review: Review) => {
         setSelectedReview(review);
         setTextareaValue(aiResponses.find(response => response.reviewId === review?.id)?.aiResponse || '');
+        reviewViewerRef.current?.scrollIntoView({ behavior: "smooth", block: "end"}); 
     };
     const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setTextareaValue(event.target.value);
@@ -32,7 +34,7 @@ const ReviewComponent = () => {
                     <div className="my-3 flex flex-col gap-3">
                         {reviews.map((review, index) => {
                             return (
-                                <Card key={index} className="shadow-none border-none rounded-lg cursor-pointer">
+                                <Card key={index} className="shadow-none border-none rounded-lg ">
                                     <CardHeader className="justify-between px-3 pt-3 pb-1 flex flex-row items-center">
                                         <div className="flex gap-2 items-center">
                                             <Avatar className="h-8 w-8">
@@ -50,9 +52,9 @@ const ReviewComponent = () => {
                                         <hr className="my-2" />
                                     </CardContent>
                                     <CardFooter className="flex justify-between px-3 pb-3 pt-0">
-                                        <Button className={`border-none text-xs font-bold ${review.mood === 'Happy' ? 'bg-dashboardButton' : 'bg-red-100 text-destructive'}`} variant='outline'>
-                                            {review.mood === 'Happy' ? <Smile className="fill-yellow-400 stroke-1.5" /> : <Angry className="fill-red-400 stroke-1.5 stroke-black" />} {review.mood}
-                                        </Button>
+                                        <Badge className={`border-none p-2 flex gap-1 items-center text-xs font-bold ${review.mood === 'Happy' ? 'bg-dashboardButton' : 'bg-red-100 text-destructive'}`} variant='outline'>
+                                            {review.mood === 'Happy' ? <Smile className="fill-yellow-400 stroke-1.5 h-4 w-4" /> : <Angry className="fill-red-400 stroke-1.5 stroke-black h-4 w-4" />} {review.mood}
+                                        </Badge>
                                         {
                                             review.mood === 'Happy' ? (
                                                 <Button className="border-none bg-dashboardButton text-xs font-bold" onClick={() => { handleReviewClick(review) }} variant='outline'><AiIcon /> Generate Response</Button>
@@ -70,7 +72,7 @@ const ReviewComponent = () => {
                     </div>
                     {
                         selectedReview && (
-                            <Card className="shadow-none border-none rounded-lg relative my-3 h-max">
+                            <Card ref={reviewViewerRef} className="shadow-none border-none rounded-lg relative my-3 h-max">
                                 <CardHeader className="pb-3 px-4">
                                     <h1 className="font-bold">View Details</h1>
                                     <hr />
@@ -79,7 +81,7 @@ const ReviewComponent = () => {
                                     <div className="justify-between flex flex-row items-center">
                                         <div className="flex gap-2 items-center">
                                             <Avatar className="h-8 w-8">
-                                                <AvatarImage src='https://github.com/shadcn.png' alt="Avatar" className="h-8 w-8 rounded-full" />
+                                                <AvatarImage src={selectedReview.avatar} alt="Avatar" className="h-8 w-8 rounded-full" />
                                             </Avatar>
                                             <div>
                                                 <h2 className="text-sm font-semibold">{selectedReview.fullname}</h2>
@@ -94,11 +96,11 @@ const ReviewComponent = () => {
                                     <p className="italic mt-2 text-sm text-gray-500">{selectedReview.reviewmesg.length > 80 ? selectedReview.reviewmesg.slice(0, 80) + '...' : selectedReview.reviewmesg}</p>
                                     <hr className="my-1" />
                                 </CardContent>
-                                <CardContent>
+                                <CardContent className="px-4">
                                     <div className="flex flex-col mb-40 items-between h-full justify-between">
                                         <div>
                                             <h1 className="font-bold my-2 text-sm">Ai Response</h1>
-                                            <textarea readOnly={readOnly}  className=" focus:outline-none focus:border-none text-sm  w-full h-[150px] px-1 bg-transparent resize-none no-scrollbar " value={textareaValue}  onChange={handleTextareaChange} />
+                                            <textarea readOnly={readOnly}  className=" focus:outline-none focus:border-none text-sm  w-full h-[150px] bg-transparent resize-none no-scrollbar " value={textareaValue}  onChange={handleTextareaChange} />
                                         </div>
                                     </div>
                                 </CardContent>
