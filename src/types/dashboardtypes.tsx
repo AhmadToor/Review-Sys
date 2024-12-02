@@ -2,7 +2,7 @@ interface ReviewType {
     id : string
     fullname: string;
     avatar: string;
-    rating: string;
+    rating: number;
     reviewmesg: string;
     mood: string;
     email : string;

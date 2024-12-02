@@ -9,10 +9,13 @@ import Done from '@/assets/svg/DoneIcon.svg?react'
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Review } from "@/types/dashboardtypes";
-import { aiResponses, reviews } from "@/data/unRepliedReviews";
+import { aiResponses } from "@/data/unRepliedReviews";
 
-
-const ReviewComponent = () => {
+interface ReviewComponentProps {
+    reviews: Review[];
+  }
+  
+  const ReviewComponent: React.FC<ReviewComponentProps> = ({reviews}) => {
     const reviewViewerRef = useRef<HTMLDivElement | null>(null);
     const [selectedReview, setSelectedReview] = useState<Review | null>(reviews.length > 0 ? reviews[0] : null);
     const [textareaValue, setTextareaValue] = useState<string>(aiResponses.find(response => response.reviewId === selectedReview?.id)?.aiResponse || '');
@@ -45,7 +48,7 @@ const ReviewComponent = () => {
                                                 <p className="text-gray-400 text-[8px]">Posted 1 hour ago.</p>
                                             </div>
                                         </div>
-                                        <Badge className="w-fit text-xs flex items-center"><Star className="stroke-none fill-yellow-400 h-4 w-4" />{review.rating}</Badge>
+                                        <Badge className="w-fit text-xs flex items-center"><Star className="stroke-none fill-yellow-400 h-4 w-4" />{review.rating.toFixed(1)}</Badge>
                                     </CardHeader>
                                     <CardContent className="px-3 py-1">
                                         <p className="text-sm italic text-black">{review.reviewmesg}</p>
@@ -90,7 +93,7 @@ const ReviewComponent = () => {
                                         </div>
                                         <div className="flex gap-2">
                                             <Badge className="w-fit text-xs flex items-center">{selectedReview.mood === 'Happy' ? <Smile className="stroke-1.5 fill-yellow-400 h-4 w-4" /> : <Angry className="fill-red-400 stroke-1.5 h-4 w-4" />}</Badge>
-                                            <Badge className="w-fit text-xs flex items-center gap-1"><Star className="stroke-none fill-yellow-400 h-4 w-4" />{selectedReview.rating}</Badge>
+                                            <Badge className="w-fit text-xs flex items-center gap-1"><Star className="stroke-none fill-yellow-400 h-4 w-4" />{selectedReview.rating.toFixed(1)}</Badge>
                                         </div>
                                     </div>
                                     <p className="italic mt-2 text-sm text-gray-500">{selectedReview.reviewmesg.length > 80 ? selectedReview.reviewmesg.slice(0, 80) + '...' : selectedReview.reviewmesg}</p>

@@ -64,7 +64,7 @@ const handleReviewClick = (review: Review) => {
                     </div>
                     <div className="flex gap-2">
                     <Badge className={`border-none  text-xs font-bold ${review.mood === 'Happy'? 'bg-dashboardButton' : 'bg-red-100 '}`} >{review.mood === 'Happy'? <Smile className="stroke-1.5 fill-yellow-400 h-4 w-4 mr-1"/> : <Angry className="fill-red-400 stroke-1.5 h-4 w-4 mr-1"/>} {review.mood}</Badge>
-                    <Badge className="w-fit text-xs flex items-center gap-1" > <Star className="stroke-none fill-yellow-400 h-4 w-4"/>  {review.rating}</Badge>
+                    <Badge className="w-fit text-xs flex items-center gap-1" > <Star className="stroke-none fill-yellow-400 h-4 w-4"/>  {review.rating.toFixed(1)}</Badge>
                     </div>
             </div>
             <p className="italic mt-2 text-xs text-gray-500">{review.reviewmesg.length > 100 ? review.reviewmesg.slice(0, 100) + '...' : review.reviewmesg}</p>
@@ -97,7 +97,7 @@ const handleReviewClick = (review: Review) => {
                 </div>
                 <div className="flex gap-2">
                 <Badge className={`w-fit text-xs flex items-center ${selectedReview.mood === 'Happy'? 'bg-dashboardButton' : 'bg-red-100 '}`} >{selectedReview.mood === 'Happy'? <Smile className="stroke-1.5 fill-yellow-400 h-4 w-4"/> : <Angry className="fill-red-400 stroke-1.5 h-4 w-4"/>}</Badge>
-                <Badge className="w-fit text-xs flex items-center gap-1" > <Star className="stroke-none fill-yellow-400 h-4 w-4"/>  {selectedReview.rating}</Badge>
+                <Badge className="w-fit text-xs flex items-center gap-1" > <Star className="stroke-none fill-yellow-400 h-4 w-4"/>  {selectedReview.rating.toFixed(1)}</Badge>
                 </div>
         </div>
         <p className=" mt-2 text-sm text-gray-500 italic">{ selectedReview.reviewmesg}</p>
