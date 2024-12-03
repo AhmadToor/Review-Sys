@@ -4,8 +4,10 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 const SettingsGeneralTab = () => {
+  const [dp, setDp] = useState('https://github.com/shadcn.png');
   return (
     <div className="grid grid-cols-[3fr_5fr] gap-3">
       <Card className="border-none rounded-xl p-5">
@@ -15,9 +17,24 @@ const SettingsGeneralTab = () => {
           </div>
           <div className="flex flex-col items-center justify-center">
             <Avatar className="h-8 w-8 cursor-pointer mb-6 h-36 w-36">
-              <AvatarImage src='https://github.com/shadcn.png' alt="Avatar" />
+              <AvatarImage src={dp} alt="Avatar" />
             </Avatar>
-            <Button variant='outline' className="border-none bg-gray-200 hover:text-black text-sm text-black">Edit Profile Picture</Button>
+            <Input
+              type="file"
+              accept="image/jpeg, image/png, image/jpg"
+              className="border-none bg-gray-200 rounded-full cursor-pointer hover:text-black text-sm w-min text-black"
+              onChange={(e) => {
+                const files = e.target.files;
+                if (files && files.length > 0) { 
+                  const file = files[0];
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    setDp(reader.result as string); 
+                  };
+                  reader.readAsDataURL(file); 
+                }
+              }}
+            />
             <p className="text-gray-500 text-sm text-center my-2">Allowed *.jpeg, *.jpg, *.png max size of 5 Mb</p>
           </div>
         </CardContent>
