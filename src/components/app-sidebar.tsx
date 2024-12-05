@@ -10,7 +10,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { Separator } from "./ui/separator"
-import { Check, ChevronsUpDown, Mail, Settings, SidebarClose, X } from "lucide-react"
+import { Check, ChevronsUpDown, Mail, Settings,  X } from "lucide-react"
 import NoBuisnessIcon from '@/assets/svg/NoBuisnessIcon.svg?react'
 import DefaultBuisnessIcon from '@/assets/svg/DefaultBuisnessIcon.svg?react'
 import DashboardIcon from '@/assets/svg/NavDashboardIcon.svg?react'
