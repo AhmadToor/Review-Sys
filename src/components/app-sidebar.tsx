@@ -7,9 +7,10 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { Separator } from "./ui/separator"
-import { Check, ChevronsUpDown, Mail, Settings } from "lucide-react"
+import { Check, ChevronsUpDown, Mail, Settings, SidebarClose, X } from "lucide-react"
 import NoBuisnessIcon from '@/assets/svg/NoBuisnessIcon.svg?react'
 import DefaultBuisnessIcon from '@/assets/svg/DefaultBuisnessIcon.svg?react'
 import DashboardIcon from '@/assets/svg/NavDashboardIcon.svg?react'
@@ -17,6 +18,7 @@ import AiResponseIcon from '@/assets/svg/NavAiReasponseIcon.svg?react'
 import FeedbackIcon from '@/assets/svg/NavFeedbackIcon.svg?react'
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import Logo from '@/assets/svg/DashboardLogo.svg?react'
 import {
   Command,
   CommandEmpty,
@@ -105,7 +107,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <div className="mt-2">
+        <div className="mt-2 flex flex-col">
+          <div className="flex justify-between items-between md:hidden"><Logo /> <SidebarTrigger><X/></SidebarTrigger></div>
+          <hr className="w-full my-4 md:hidden  " />
           <h3 className="text-xs text-black">Switch Business Profiles</h3>
           <p className="text-gray-500 text-[10px]">Switch your business profile to manage them easily.</p>
 

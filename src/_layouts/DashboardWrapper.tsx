@@ -2,10 +2,10 @@ import { AppSidebar } from "@/components/app-sidebar"
 import {
   SidebarInset,
   SidebarProvider,
-  // SidebarTrigger,
+  SidebarTrigger,
 } from "@/components/ui/sidebar"
 import Logo from '@/assets/svg/DashboardLogo.svg?react'
-import { Bell, CircleUserRound, Loader2, LogOut } from "lucide-react"
+import { Bell, CircleUserRound, Loader2, LogOut, MenuIcon } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import dp from '@/assets/images/Avatar.png'
 import { Button } from "@/components/ui/button"
@@ -27,8 +27,8 @@ export function DashboardWrapper({ children }: DashboardWrapperProps) {
   return (
     <>
       <header className="grid grid-col sm:grid-cols-[2fr_3fr] w-full absolute right-0  h-16 bg-header items-center  border-b px-4">
-        <div className="flex items-center w-full justify-between">
-          <Logo />
+        <div className="flex items-center  w-full justify-between">
+          <Logo className="ml-3 md:ml-0"/>
           <ul className="flex gap-6 mx-6 w-max text-xs text-gray-500 cursor-pointer">
             <li>Terms & Conditions</li>
             <li>Privacy Policy</li>
@@ -57,9 +57,11 @@ export function DashboardWrapper({ children }: DashboardWrapperProps) {
         </div>
       </header>
       <SidebarProvider>
-        {/* <SidebarTrigger className="-ml-1 z-[11]" /> */}
+        <SidebarTrigger className="-ml-1 mt-4 z-[11] md:hidden" >
+        <MenuIcon/>
+        </SidebarTrigger>
 
-        <AppSidebar  className="absolute  top-16 h-sidebar-height" />
+        <AppSidebar className="absolute  top-16 h-sidebar-height" />
         <SidebarInset className="h-sidebar-height absolute top-16  right-0 w-full md:w-sidebar-inset-width overflow-y-auto">
           {showChildren ? 
           (
