@@ -14,7 +14,6 @@ import AttachBuisnessIcon from '@/assets/svg/DashboardAttachBuisnessIcon.svg?rea
 import { useContext } from "react"
 import { DropdownMenu, DropdownMenuContent,  DropdownMenuItem,  DropdownMenuSeparator,  DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ShowChildrenContext } from "@/App"
-import VectorBackground from '@/assets/svg/Vector Background.svg?react'
 import { Link } from "react-router-dom"
 import { useAuth } from "@/hooks/useAuth"
 interface DashboardWrapperProps {
