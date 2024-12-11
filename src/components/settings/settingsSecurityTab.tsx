@@ -65,6 +65,9 @@ const SettingsSecurityTab = () => {
             {errors.confirmPasswordError && (
               <CardDescription  className="ml-2 my-0 text-destructive">{errors.confirmPasswordError}</CardDescription>
             )}
+            {errors.serverError && (
+              <CardDescription  className="ml-2 my-0 text-destructive">{errors.serverError}</CardDescription>
+            )}
           </div>
         </CardContent>
         <CardFooter >

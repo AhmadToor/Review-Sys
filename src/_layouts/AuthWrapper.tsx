@@ -2,10 +2,28 @@ import AuthIcon from '@/assets/svg/AuthIcon.svg?react'
 import Logo from '@/assets/svg/AuthLogo.svg?react'
 import Logo2 from '@/assets/svg/DashboardLogo.svg?react'
 import { Toaster } from "@/components/ui/toaster"
+import { useToast } from '@/hooks/use-toast'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 interface AuthWrapperProps {
     children : React.ReactNode
 }
 const AuthWrapper = ({children}: AuthWrapperProps) => {
+  const { toast } = useToast();
+  const location = useLocation()
+  const popup = location.state?.popup
+    useEffect(() => {
+    if (popup) {
+      toast({
+        variant: 'default',
+        title: 'Message',
+        description: popup,
+      });
+      window.history.replaceState({}, document.title, location.pathname);
+    }
+    
+
+  }, [popup ,toast, location.pathname]);
   return (
     <div className="m-0 h-screen w-full md:grid md:grid-cols-auth">
     <div className="h-screen bg-no-repeat bg-[length:100%_100%] hidden md:flex bg-auth" >

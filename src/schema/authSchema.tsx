@@ -17,9 +17,10 @@ export const signinschema = z.object({
 
 export const resetPasswordSchema = z
   .object({
-    oldpassword: z.string().min(1, 'Old Password is required!').optional(),
+    accessToken : z.string().optional(),
+    oldpassword: z.string().min(1, 'Old Password is required!'),
     newpassword: z.string().min(8, 'Password must conatin atleast 8 characters.'),
-    confirmPassword: z.string().min(8, 'Password must conatin atleast 8 characters.'),
+    confirmPassword: z.string().min(8, 'Password must conatin atleast 8 characters.').optional(),
   })
   .refine((data) => data.newpassword === data.confirmPassword, {
     message: "Passwords don't match",

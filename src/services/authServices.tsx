@@ -1,4 +1,4 @@
-import { SigninSchemaTypes, SignupSchemaTypes } from '@/types/authtypes';
+import { ResetPasswordSchemaTypes, SigninSchemaTypes, SignupSchemaTypes } from '@/types/authtypes';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 
 const loginRequest = async (values: SigninSchemaTypes) => {
     try {
-        const response = await axiosInstance.post('/api/signin', values);
+        const response = await axiosInstance.post('/api/users/login', values);
         return response.data; 
     } catch (error) {
 
@@ -22,7 +22,7 @@ const loginRequest = async (values: SigninSchemaTypes) => {
 };
 const signupRequest = async (values: SignupSchemaTypes) => {
     try {
-        const response = await axiosInstance.post('/api/signup', values);
+        const response = await axiosInstance.post('/api/users/register', values);
         return response.data; 
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -45,4 +45,17 @@ const linkGoogleBuisnessAccountRequest  = async () => {
     }
 };
 
-export { loginRequest , signupRequest, linkGoogleBuisnessAccountRequest};
+const resetPasswordRequest = async (values: ResetPasswordSchemaTypes)=>{
+    try {
+        const response = await axiosInstance.post('/api/users/resetpassword', values)
+        return response.data
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            throw error.response.data; 
+        }
+
+        throw new Error('An unexpected error occurred');
+    }
+}
+
+export { loginRequest , resetPasswordRequest, signupRequest, linkGoogleBuisnessAccountRequest};
