@@ -1,6 +1,6 @@
-import { EmailTemplate } from "@/types/dashboardtypes";
+import {EmailTemplateType } from "@/types/dashboardtypes";
 
-export const emailtemplates : EmailTemplate[] = [
+export const emailtemplates : EmailTemplateType[] = [
     {
         subject : 'Itny naraz q ho bhae',
         body : `Hi [Customer Name],

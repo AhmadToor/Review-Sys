@@ -57,8 +57,9 @@ function App() {
     element: React.ReactElement
   }
    const PrivateRouter = ({element}: PrivateRouterProps)=>{
-        const accessToken = localStorage.getItem('accessToken');
-        return accessToken? element : <Navigate to='/signin'/>  
+        // const accessToken = localStorage.getItem('accessToken');
+        // return accessToken? element : <Navigate to='/signin'/>  
+        return element
    }
    const Navigator = ()=>{
     return  <Navigate to='/dashboard'/>  

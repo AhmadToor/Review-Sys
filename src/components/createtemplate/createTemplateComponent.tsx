@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
@@ -8,14 +8,22 @@ import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import LoadingIcon from '@/assets/svg/LoadingIcon.svg?react'
 import { useState } from "react";
 import EmailTextEditor from "../emailresponse/emailTextEditor";
+import { useCreateEmailTemplate } from "@/hooks/useCreateEmailTemplate";
 
+const CreateTemplateComponent = () => {
+    const {
+        handleCreateEmailTemplate,
+        handleSubmit,
+        register,
+        errors,
+        isLoading
+    } = useCreateEmailTemplate()
 const TextArea = ()=>{
     return(
-        <textarea className="flex h-[400px] w-full rounded-md border border-none bg-background px-2 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-none" placeholder="Response Text Goes Here..." />
+        <textarea {...register('body')} className="flex h-[400px] w-full rounded-md border border-none bg-background px-2 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-none" placeholder="Response Text Goes Here..." />
     )
 }
 
-const CreateTemplateComponent = () => {
     const navigate = useNavigate()
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [ButtonDisabled, setButtonDisabled] = useState(false)
@@ -42,7 +50,7 @@ It’s now easier than ever to take your next step towards your ideal home.
 
 Maan jao na yawr. 
 
- Thanks`}
+Thanks`}
         </EmailTextEditor>)
     }, 3000);
 };
@@ -51,7 +59,7 @@ Maan jao na yawr.
     return (
         <div className="mt-4 grid grid-cols-[3fr_2fr] gap-3">
             <Card className="p-3 border-none rounded-xl relative ">
-                <form>
+                <form onSubmit={handleSubmit(handleCreateEmailTemplate)}>
                     <CardContent className="p-0 mb-20">
                         <div className="space-y-1">
                             <Label className="text-sm " htmlFor="name" >Template Name</Label>
@@ -64,14 +72,23 @@ Maan jao na yawr.
                             <Label className="text-sm " htmlFor="subject" >Subject</Label>
                             <Input
                                 placeholder="Subject Goes Here...."
-                                className="border-none"
+                                className="border-none mb-1"
+                                {...register('subject')}
                             />
+                            {
+                                errors.subject && <p className="text-destructive text-sm">{errors.subject}</p>
+                            }
                         </div>
                         <div className="space-y-1 mt-2">
                             <Label className="text-sm " htmlFor="subject" >Response Text</Label>
                            {responseText}
-
                         </div>
+                            {
+                                errors.body && <p className="text-destructive text-sm">{errors.body}</p>
+                            }
+                            {
+                                errors.server && <p className="text-destructive text-sm">{errors.server}</p>
+                            }
                     </CardContent>
                     <CardFooter className="absolute flex-col bottom-3 p-0 right-3 left-3">
                         <hr className="w-full my-2" />
@@ -81,7 +98,7 @@ Maan jao na yawr.
                             </Button>
 
                             <Button type="submit" >
-                                Save
+                                {isLoading? <Loader2 className="animate-spin"/> : "Save"}
                             </Button>
 
 

@@ -1,3 +1,6 @@
+import { emailTemplateSchema } from "@/schema/emailTemplateSchema";
+import { z } from "zod";
+
 interface ReviewType {
     id : string
     fullname: string;
@@ -7,9 +10,6 @@ interface ReviewType {
     mood: string;
     email : string;
 }
-interface EmailTemplateType {
-    subject : string;
-    body: string;
-}
+
 export type Review = ReviewType
-export type EmailTemplate = EmailTemplateType
+export type EmailTemplateType = z.infer<typeof emailTemplateSchema>
