@@ -1,7 +1,7 @@
 # ReviewLore AI
 
 
-<img src="public/logo.png" alt="Pakistan LawBot" width="200"/>
+<img src="public/logo.png" alt="Pakistan LawBot" />
 
 
 ReviewLore AI is a powerful tool designed to help businesses manage their customer reviews efficiently using AI-generated responses. This project is built with React, TypeScript, and Vite, and leverages various modern libraries and tools to provide a seamless user experience.
