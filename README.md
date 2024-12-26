@@ -1,50 +1,59 @@
-# React + TypeScript + Vite
+# ReviewLore AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+<img src="public/logo.png" alt="Pakistan LawBot" width="200"/>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+ReviewLore AI is a powerful tool designed to help businesses manage their customer reviews efficiently using AI-generated responses. This project is built with React, TypeScript, and Vite, and leverages various modern libraries and tools to provide a seamless user experience.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+- **AI-Generated Responses:** Automatically generate responses for customer reviews using AI.
+- **Real-Time Data Synchronization:** Sync review data from Google Business in real-time.
+- **Sentiment Analysis:** Tailor responses based on the sentiment of the review (positive, neutral, negative).
+- **Bulk Replies:** Generate and manage responses for multiple reviews at once.
+- **Custom Alerts:** Set up alerts for specific keywords, star ratings, review types, or sentiments.
+- **Email Templates:** Create and manage email templates for responding to reviews.
+- **User Authentication:** Secure user authentication and profile management.
+- **Responsive Design:** Fully responsive design for a seamless experience on any device.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Installation
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+1.  Clone the repository: ``git clone
+    https://github.com/AhmadToor/Review-Sys.git``
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+2.  Navigate to Review-Sys.
+
+3.  Open terminal and write ``npm install``
+
+4.  After installation, write ``npm run dev`` to start the development server.
+
+## Usage
+
+1.  Open your web browser and navigate to http://localhost:5173
+
+2.  Explore the website and its features
+
+## Usage Details
+
+In inital screen you may get login screen. Don't worry just got to '/' and enjoy the content.
+
+## Contributing
+
+Contributions are welcome! Please submit a pull request with your
+changes.
+
+## License
+
+Oasis Restaurant website is licensed under the MIT License. See LICENSE
+for details.
+
+## Contact
+
+For questions or feedback, please email <ahmadtoor4321@gmail.com> or open
+an issue on this repository.
+
+---
+
+Crafted with ❤️ by [Ahmad Toor](https://github.com/AhmadToor)
