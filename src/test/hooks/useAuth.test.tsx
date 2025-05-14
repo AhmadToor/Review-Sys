@@ -1,68 +1,64 @@
 import { renderHook, act } from "@testing-library/react";
 import { useAuth } from "@/hooks/useAuth";
-import { AuthProvider } from "@/context/AuthContext";
-import { ReactNode } from "react";
+import { BrowserRouter } from "react-router-dom";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BuisnessProfileContext } from "@/App";
+import { AuthContext } from "@/context/AuthContext";
 
-// Mock react-router-dom
-vi.mock("react-router-dom", () => ({
-  useNavigate: () => vi.fn(),
-}));
+// Mock navigate function
+const mockNavigate = vi.fn();
 
-// Mock auth services
-vi.mock("@/services/authServices", () => ({
-  loginRequest: vi.fn(),
-  signupRequest: vi.fn(),
-  linkGoogleBuisnessAccountRequest: vi.fn(),
-}));
-
-// Mock toast hook
+// Mock useToast
 vi.mock("@/hooks/use-toast", () => ({
   useToast: () => ({
     toast: vi.fn(),
   }),
 }));
 
-// Mock AuthContext
-vi.mock("@/context/AuthContext", () => ({
-  useAuth: () => ({
-    login: vi.fn(),
-    logout: vi.fn(),
-    user: null,
-    isAuthenticated: false,
-    isLoading: false,
-    updateUser: vi.fn(),
+// Mock react-router-dom
+vi.mock("react-router-dom", async () => {
+  const actual = await vi.importActual("react-router-dom");
+  return {
+    ...(actual as any),
+    useNavigate: () => mockNavigate,
+  };
+});
+
+// Mock linkGoogleBuisnessAccountRequest
+vi.mock("@/services/authServices", () => ({
+  linkGoogleBuisnessAccountRequest: vi.fn().mockResolvedValue({
+    buisness: "next.js",
+    url: "https://business.google.com/create",
   }),
-  AuthProvider: ({ children }: { children: ReactNode }) => <>{children}</>,
 }));
 
-const createWrapper = () => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
-  });
-
+const createWrapper = (buisnessProfile: string | null = null) => {
   const setBuisnessProfile = vi.fn();
+  const logout = vi.fn();
 
-  return ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider client={queryClient}>
+  return ({ children }: { children: React.ReactNode }) => (
+    <BrowserRouter>
       <BuisnessProfileContext.Provider
-        value={{ buisnessProfile: null, setBuisnessProfile }}
+        value={{ buisnessProfile, setBuisnessProfile }}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <AuthContext.Provider
+          value={{
+            user: null,
+            token: null,
+            isAuthenticated: false,
+            login: vi.fn(),
+            logout,
+          }}
+        >
+          {children}
+        </AuthContext.Provider>
       </BuisnessProfileContext.Provider>
-    </QueryClientProvider>
+    </BrowserRouter>
   );
 };
 
-describe("useAuth hook", () => {
+describe("useAuth", () => {
   beforeEach(() => {
-    localStorage.clear();
     vi.clearAllMocks();
   });
 
@@ -86,20 +82,6 @@ describe("useAuth hook", () => {
     expect(result.current.passwordType).toBe("password");
   });
 
-  it("should toggle confirm password visibility", () => {
-    const { result } = renderHook(() => useAuth(), {
-      wrapper: createWrapper(),
-    });
-
-    expect(result.current.confirmPasswordType).toBe("password");
-
-    act(() => {
-      result.current.toggleConfirmPasswordVisibility();
-    });
-
-    expect(result.current.confirmPasswordType).toBe("text");
-  });
-
   it("should toggle old password visibility", () => {
     const { result } = renderHook(() => useAuth(), {
       wrapper: createWrapper(),
@@ -112,5 +94,58 @@ describe("useAuth hook", () => {
     });
 
     expect(result.current.oldPasswordType).toBe("text");
+
+    act(() => {
+      result.current.toggleOldPasswordVisibility();
+    });
+
+    expect(result.current.oldPasswordType).toBe("password");
+  });
+
+  it("should toggle confirm password visibility", () => {
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: createWrapper(),
+    });
+
+    expect(result.current.confirmPasswordType).toBe("password");
+
+    act(() => {
+      result.current.toggleConfirmPasswordVisibility();
+    });
+
+    expect(result.current.confirmPasswordType).toBe("text");
+
+    act(() => {
+      result.current.toggleConfirmPasswordVisibility();
+    });
+
+    expect(result.current.confirmPasswordType).toBe("password");
+  });
+
+  it("should handle logout correctly", async () => {
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: createWrapper(),
+    });
+
+    await act(async () => {
+      await result.current.handleLogout();
+    });
+
+    expect(mockNavigate).toHaveBeenCalledWith("/signin");
+  });
+
+  it("should handle linking Google Business account", async () => {
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: createWrapper(),
+    });
+
+    await act(async () => {
+      result.current.handleLinkGoogleBuisnessAccount();
+    });
+
+    // Wait for the mutation to complete
+    await vi.waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
+    });
   });
 });

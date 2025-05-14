@@ -1,8 +1,6 @@
 # ReviewLore AI
 
-
-<img src="public/logo.svg" alt="Pakistan LawBot" width='200' />
-
+<img src="public/logo.svg" alt="ReviewLore AI" width='200' />
 
 ReviewLore AI is a powerful tool designed to help businesses manage their customer reviews efficiently using AI-generated responses. This project is built with React, TypeScript, and Vite, and leverages various modern libraries and tools to provide a seamless user experience.
 
@@ -17,42 +15,111 @@ ReviewLore AI is a powerful tool designed to help businesses manage their custom
 - **User Authentication:** Secure user authentication and profile management.
 - **Responsive Design:** Fully responsive design for a seamless experience on any device.
 
+## Tech Stack
+
+- **Frontend**: React, TypeScript, Tailwind CSS, Shadcn UI
+- **State Management**: React Context API, React Query
+- **Form Handling**: React Hook Form, Zod validation
+- **Testing**: Vitest, React Testing Library, MSW
+- **Build Tools**: Vite, SWC
+- **Icons**: Lucide React
+- **Rich Text Editing**: Lexical
 
 ## Installation
 
-1.  Clone the repository: ``git clone
-    https://github.com/AhmadToor/Review-Sys.git``
+1. Clone the repository: 
+   ```bash
+   git clone https://github.com/AhmadToor/Review-Sys.git
+   ```
 
-2.  Navigate to Review-Sys.
+2. Navigate to the project directory:
+   ```bash
+   cd Review-Sys
+   ```
 
-3.  Open terminal and write ``npm install``
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-4.  After installation, write ``npm run dev`` to start the development server.
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-## Usage
+5. Open your web browser and navigate to http://localhost:5173
 
-1.  Open your web browser and navigate to http://localhost:5173
+## Environment Variables
 
-2.  Explore the website and its features
+Create a `.env` file in the root directory with the following variables:
 
-## Usage Details
+```
+VITE_API_URL=your_api_url
+```
 
-In inital screen you may get login screen. Don't worry just got to '/' and enjoy the content.
+## Building for Production
+
+```bash
+npm run build
+```
+
+The build artifacts will be stored in the `dist/` directory.
+
+## Testing
+
+Run the test suite with:
+
+```bash
+npm test
+```
+
+For test coverage:
+
+```bash
+npm run test:coverage
+```
+
+## Project Structure
+
+```
+├── public/              # Static assets
+├── src/
+│   ├── _layouts/        # Layout components
+│   ├── api/             # API configuration
+│   ├── assets/          # Images, fonts, and SVGs
+│   ├── components/      # Reusable components
+│   ├── context/         # React context providers
+│   ├── data/            # Mock data
+│   ├── hooks/           # Custom React hooks
+│   ├── lib/             # Utility functions
+│   ├── pages/           # Page components
+│   ├── schema/          # Zod validation schemas
+│   ├── services/        # API service functions
+│   ├── test/            # Test utilities and mocks
+│   ├── types/           # TypeScript type definitions
+│   ├── App.tsx          # Main App component
+│   ├── index.css        # Global styles
+│   └── main.tsx         # Entry point
+├── .gitignore
+├── index.html
+├── package.json
+├── tailwind.config.cjs  # Tailwind configuration
+├── tsconfig.json        # TypeScript configuration
+├── vite.config.ts       # Vite configuration
+└── vitest.config.ts     # Vitest configuration
+```
 
 ## Contributing
 
-Contributions are welcome! Please submit a pull request with your
-changes.
+Contributions are welcome! Please submit a pull request with your changes.
 
 ## License
 
-Oasis Restaurant website is licensed under the MIT License. See LICENSE
-for details.
+ReviewLore AI is licensed under the MIT License. See LICENSE for details.
 
 ## Contact
 
-For questions or feedback, please email <ahmadtoor4321@gmail.com> or open
-an issue on this repository.
+For questions or feedback, please email <ahmadtoor4321@gmail.com> or open an issue on this repository.
 
 ---
 

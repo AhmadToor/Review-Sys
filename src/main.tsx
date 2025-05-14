@@ -1,48 +1,28 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
 import "./index.css";
-import App from "./App.tsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TempoDevtools } from "tempo-devtools";
 
-// Initialize Tempo Devtools only in development or when VITE_TEMPO is true
-if (import.meta.env.DEV || import.meta.env.VITE_TEMPO === "true") {
-  TempoDevtools.init();
-}
+// Initialize Tempo Devtools
+TempoDevtools.init();
 
-// Initialize MSW in development mode
-if (import.meta.env.DEV) {
-  const initMocks = async () => {
-    const { worker } = await import("./test/mocks/browser");
-    worker.start({
-      onUnhandledRequest: "bypass",
-    });
-  };
-
-  initMocks();
-}
-
-// Configure React Query client with sensible defaults
+// Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
       refetchOnWindowFocus: false,
       retry: 1,
-      staleTime: 5 * 60 * 1000, // 5 minutes
     },
   },
 });
 
-// Add error handling for uncaught errors
-window.addEventListener("error", (event) => {
-  console.error("Uncaught error:", event.error);
-  // You could send to an error tracking service here
-});
-
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <App />
     </QueryClientProvider>
-  </StrictMode>,
+  </React.StrictMode>,
 );
